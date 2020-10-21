@@ -1,6 +1,7 @@
-function createReceipt (prices) {
+function createReceipt (prices, order="") {
     let result = '';
     result += receiptHeader(prices)
+    result += `${order.customer}\n`
     return result;
 
     function receiptHeader (menu) {
