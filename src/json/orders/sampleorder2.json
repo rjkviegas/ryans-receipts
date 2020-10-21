@@ -1,0 +1,19 @@
+[
+    {
+        "customer": "John",
+        "items": [
+            {
+                "id": "Americano",
+                "quantity": 4
+            },
+            {
+                "id": "Tiramisu",
+                "quantity": 2 
+            },
+            {
+                "id": "Blueberry Muffin",
+                "quantity": 5
+            }
+        ]
+    }
+]

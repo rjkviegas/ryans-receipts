@@ -3,7 +3,7 @@
 ## Specification
 
 Build a program that:
-1. receives input for the customer name and items ordered
+1. receives input for the order
 2. recieves price information taken from a `json` file 
 3. calculates and outputs correct amount of tax, line totals and total amount
 4. produces a receipt similiar to the [Sample Receipt](images/receipt.jpg)
@@ -22,17 +22,40 @@ John
 2 x Tiramisu
 5 x Blueberry Muffin
 ```
+To keep consistency with the `prices.json` file the orders will be input as their own `json` file eg:
+*orders.json*...
+```
+[
+    {
+        "customer": "Jane",
+        "items": [
+            {
+                "id": "Cafe Latte",
+                "quantity": 2
+            },
+            {
+                "id": "Blueberry Muffin",
+                "quantity": 1 
+            },
+            {
+                "id": "Choc Mudcake",
+                "quantity": 1
+            }
+        ]
+    }
+]
+```
 The tax rate is defined as 8.64%
 
 ## User Stories
 ```
 As the coffee shop owner
-So I can create bespoke receipts for customers
-I want to be able to include their name on the receipt
-
-As the coffee shop owner
 So I can charge customers for what they ordered
 I want to be able to log what they ordered
+
+As the coffee shop owner
+So I can create bespoke receipts for customers
+I want to be able to include their name on the receipt
 
 As the coffee shop owner
 So I only have to update one list of price information
