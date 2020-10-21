@@ -7,7 +7,7 @@ Build a program that:
 2. recieves price information taken from a `json` file 
 3. calculates and outputs correct amount of tax, line totals and total amount
 4. produces a receipt similiar to the following:
-![Sample Receipt](images/receipt.jpg)
+[Sample Receipt](images/receipt.jpg)
 
 ## Sample Orders
 
@@ -23,5 +23,31 @@ John
 2 x Tiramisu
 5 x Blueberry Muffin
 ```
-
 The tax rate is defined as 8.64%
+
+## User Stories
+```
+As the coffee shop owner
+So I can create bespoke receipts for customers
+I want to be able to include their name on the receipt
+
+As the coffee shop owner
+So I can charge customers for what they ordered
+I want to be able to log what they ordered
+
+As the coffee shop owner
+So I only have to update one list of price information
+I want the receipt program to use our json price file
+
+As the coffee shop owner
+So I charge the customers the correct amount
+I want the line totals correctly calculated and displayed on the receipt
+
+As the coffee shop owner
+So I charge the customers the correct amount
+I want the tax correctly calculated and displayed on the receipt
+
+As the coffee shop owner
+So I charge the customers the correct amount
+I want the total amount correctly calculated and displayed on the receipt
+```
