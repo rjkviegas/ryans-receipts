@@ -6,8 +6,7 @@ Build a program that:
 1. receives input for the customer name and items ordered
 2. recieves price information taken from a `json` file 
 3. calculates and outputs correct amount of tax, line totals and total amount
-4. produces a receipt similiar to the following:
-[Sample Receipt](images/receipt.jpg)
+4. produces a receipt similiar to the [Sample Receipt](images/receipt.jpg)
 
 ## Sample Orders
 
