@@ -3,7 +3,7 @@
 ## Specification
 
 Build a program that:
-1. receives input for the order
+1. generates a receipt for an order 
 2. recieves price information taken from a `json` file 
 3. calculates and outputs correct amount of tax, line totals and total amount
 4. produces a receipt similiar to the [Sample Receipt](images/receipt.jpg)
@@ -39,7 +39,7 @@ To keep consistency with the `prices.json` file the orders will be input as thei
             },
             {
                 "id": "Choc Mudcake",
-                "quantity": 1
+                "quantity" : 1
             }
         ]
     }
@@ -50,8 +50,12 @@ The tax rate is defined as 8.64%
 ## User Stories
 ```
 As the coffee shop owner
+So it's clear where the receipt is from
+I want the receipt to display the coffee shop's information
+
+As the coffee shop owner
 So I can charge customers for what they ordered
-I want to be able to log what they ordered
+I want the receipt to display what they ordered
 
 As the coffee shop owner
 So I can create bespoke receipts for customers
