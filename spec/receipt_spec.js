@@ -44,17 +44,17 @@ describe('receipt', function () {
         });
         it('returns items ordered', function () {
             expect(receipt(menu, orderJson)).toContain(
-                `Cafe Latte\t2 x 4.75\n`
+                `Cafe Latte\t2 x $4.75\n`
             );
         });
         it('returns items ordered', function () {
             expect(receipt(menu, orderJson)).toContain(
-                `Blueberry Muffin\t1 x 4.05\n`
+                `Blueberry Muffin\t1 x $4.05\n`
             );
         });
         it('returns items ordered', function () {
             expect(receipt(menu, orderJson)).toContain(
-                `Choc Mudcake\t1 x 6.40\n`
+                `Choc Mudcake\t1 x $6.40\n`
             );
         });
     });

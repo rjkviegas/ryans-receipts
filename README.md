@@ -22,6 +22,7 @@ John
 2 x Tiramisu
 5 x Blueberry Muffin
 ```
+The tax rate is defined as 8.64%.
 To keep consistency with the `menu.json` file the orders will be input as their own `order.json` file eg:
 *orders.json*...
 ```
@@ -45,7 +46,6 @@ To keep consistency with the `menu.json` file the orders will be input as their 
     }
 ]
 ```
-The tax rate is defined as 8.64%
 
 ## User Stories
 ```

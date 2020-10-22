@@ -1,37 +1,32 @@
 function receipt (menu, order) {
     let result = '';
     const taxRate = 8.64;
-    result += header(menu)
-    result += body(menu, order);
-    result += totals(menu, order);
+    result += header(menu, order);
+    for (let item of order.items) {
+        result += `${item.id}\t${item.quantity} x ${usd(menu.prices[0][item.id])}\n`;
+    }
+    result += `Tax\t${usd(taxTotal(preTaxTotal(menu, order), taxRate))}\n` +
+        `Total Amount:\t${usd(totalAmount(menu, order))}`;
     return result;
 
-    function header (menu) {
+    function header (menu, order) {
         let result = '';
         result += `${menu.shopName}\n`;
         result += `${menu.address}\n`;
-        result += 
-            `+${menu.phone[0]} ` +
-            `(${menu.phone.slice(1, 4)}) ` +
-            `${menu.phone.slice(4, 7)}` +
-            `-${menu.phone.slice(7)}\n`;
+        result += phoneNumFormat(menu.phone);
+        result += `${order.customer}\n`;
         return result;
     }
 
-    function body (menu, order) {
-        let result = `${order.customer}\n`
-        for (let item of order.items) {
-            result += createItemLine(menu, item)
-        }
-        return result
+    function phoneNumFormat (aPhoneNum) {
+        return `+${aPhoneNum[0]} ` +
+        `(${aPhoneNum.slice(1, 4)}) ` +
+        `${aPhoneNum.slice(4, 7)}` +
+        `-${aPhoneNum.slice(7)}\n`
     }
 
-    function totals (menu, order) {
-        const preTaxAmount = preTaxTotal(menu, order);
-        const taxAmount = (preTaxAmount*taxRate/100);
-        const totalAmount = preTaxAmount + taxAmount;
-        return  `Tax\t$${priceFormat(taxAmount)}\n` +
-            `Total Amount:\t$${priceFormat(totalAmount)}`;
+    function totalAmount (menu, order) {
+        return preTaxTotal(menu, order) + taxTotal(preTaxTotal(menu, order), taxRate);
     }
 
     function preTaxTotal (menu, order) {
@@ -43,13 +38,12 @@ function receipt (menu, order) {
         return result;
     }
 
-    function createItemLine (menu, item) {
-        let itemPrice = menu.prices[0][item.id]
-        return  `${item.id}\t${item.quantity} x ${priceFormat(itemPrice)}\n`;
+    function taxTotal (amount, taxRate) {
+        return amount*taxRate/100;
     }
 
-    function priceFormat (price) {
-        return Number.parseFloat(price).toFixed(2);
+    function usd (price) {
+        return `$${Number.parseFloat(price).toFixed(2)}`;
     }
 }
 
