@@ -1,13 +1,14 @@
 function receipt (menu, order, taxRate=8.64) {
     const receiptData = {};
     receiptData.customer = order.customer;
-    return renderPlainText (receiptData, menu, order, taxRate);
+    receiptData.items = order.items;
+    return renderPlainText (receiptData, menu, taxRate);
 }
 
-function renderPlainText (data, menu, order, taxRate) {
+function renderPlainText (data, menu, taxRate) {
     let result = `${menu.shopName}\n${menu.address}\n${phoneNumFormat(menu.phone)}\n`;
     result += `${data.customer}\n`;
-    for (let item of order.items) {
+    for (let item of data.items) {
         result += `${item.id}\t${item.quantity} x` +
             ` ${usd(menu.prices[0][item.id])} =` +
             ` ${usd(item.quantity * menu.prices[0][item.id])}\n`;
@@ -29,7 +30,7 @@ function renderPlainText (data, menu, order, taxRate) {
 
     function preTaxTotal () {
         let result = 0;
-        for (let item of order.items) {
+        for (let item of data.items) {
             let itemPrice = menu.prices[0][item.id];
             result += (item.quantity*itemPrice);
         }
