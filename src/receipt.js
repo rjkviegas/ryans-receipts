@@ -3,7 +3,9 @@ function receipt (menu, order, taxRate=8.64) {
     receiptData.customer = order.customer;
     receiptData.items = order.items.map(enrichItem);
     receiptData.preTaxTotal = preTaxTotal (receiptData);
-    return renderPlainText (receiptData, menu, taxRate);
+    receiptData.taxTotal = taxTotal (receiptData);
+    receiptData.totalAmount = totalAmount (receiptData);
+    return renderPlainText (receiptData, menu);
 
     function enrichItem (anItem) {
         const result = Object.assign({}, anItem)
@@ -27,9 +29,17 @@ function receipt (menu, order, taxRate=8.64) {
         }
         return result;
     }
+
+    function taxTotal (data) {
+        return data.preTaxTotal*taxRate/100;
+    }
+
+    function totalAmount (data) {
+        return data.preTaxTotal + data.taxTotal;
+    }
 }
 
-function renderPlainText (data, menu, taxRate) {
+function renderPlainText (data, menu) {
     let result = `${menu.shopName}\n${menu.address}\n${phoneNumFormat(menu.phone)}\n`;
     result += `${data.customer}\n`;
     for (let item of data.items) {
@@ -37,8 +47,7 @@ function renderPlainText (data, menu, taxRate) {
             ` ${usd(item.unitPrice)} =` +
             ` ${usd(item.amount)}\n`;
     }
-    result += `Tax\t${usd(taxTotal(data.preTaxTotal))}\n` +
-        `Total Amount:\t${usd(totalAmount())}`;
+    result += `Tax\t${usd(data.taxTotal)}\nTotal Amount:\t${usd(data.totalAmount)}`;
     return result;
 
     function phoneNumFormat (aPhoneNum) {
@@ -46,14 +55,6 @@ function renderPlainText (data, menu, taxRate) {
         `(${aPhoneNum.slice(1, 4)}) ` +
         `${aPhoneNum.slice(4, 7)}` +
         `-${aPhoneNum.slice(7)}`
-    }
-
-    function totalAmount () {
-        return data.preTaxTotal + taxTotal(data.preTaxTotal);
-    }
-
-    function taxTotal (anAmount) {
-        return anAmount*taxRate/100;
     }
 
     function usd (anAmount) {
