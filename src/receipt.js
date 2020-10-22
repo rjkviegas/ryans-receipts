@@ -3,18 +3,20 @@ function receipt (menu, order) {
     const taxRate = 8.64;
     result += header(menu, order);
     for (let item of order.items) {
-        result += `${item.id}\t${item.quantity} x ${usd(menu.prices[0][item.id])}\n`;
+        result += `${item.id}\t${item.quantity} x` +
+            ` ${usd(menu.prices[0][item.id])} =` +
+            ` ${usd(item.quantity * menu.prices[0][item.id])}\n`;
     }
     result += `Tax\t${usd(taxTotal(preTaxTotal(menu, order), taxRate))}\n` +
         `Total Amount:\t${usd(totalAmount(menu, order))}`;
     return result;
 
-    function header (menu, order) {
+    function header (aMenu, anOrder) {
         let result = '';
-        result += `${menu.shopName}\n`;
-        result += `${menu.address}\n`;
-        result += phoneNumFormat(menu.phone);
-        result += `${order.customer}\n`;
+        result += `${aMenu.shopName}\n`;
+        result += `${aMenu.address}\n`;
+        result += phoneNumFormat(aMenu.phone);
+        result += `${anOrder.customer}\n`;
         return result;
     }
 
