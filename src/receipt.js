@@ -23,11 +23,8 @@ function receipt (menu, order, taxRate=8.64) {
     }
 
     function preTaxTotal (data) {
-        let result = 0;
-        for (let item of data.items) {
-            result += item.amount;
-        }
-        return result;
+        return data.items
+            .reduce((total, i) => total + i.amount, 0);
     }
 
     function taxTotal (data) {
