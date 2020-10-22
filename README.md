@@ -22,7 +22,7 @@ John
 2 x Tiramisu
 5 x Blueberry Muffin
 ```
-To keep consistency with the `prices.json` file the orders will be input as their own `json` file eg:
+To keep consistency with the `menu.json` file the orders will be input as their own `order.json` file eg:
 *orders.json*...
 ```
 [
