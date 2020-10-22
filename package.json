@@ -1,14 +1,17 @@
 {
   "name": "till-tech-test",
   "version": "1.0.0",
-  "description": "## Specification",
-  "main": "index.js",
+  "description": "Receipt Generating Program",
+  "main": "./src/receipt.js",
   "dependencies": {
     "jasmine": "^3.6.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nyc": "^15.1.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jasmine",
+    "coverage": "nyc --reporter=text npm run test"
   },
   "repository": {
     "type": "git",
