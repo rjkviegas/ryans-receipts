@@ -1,8 +1,13 @@
 function receipt (menu, order, taxRate=8.64) {
     const receiptData = {};
     receiptData.customer = order.customer;
-    receiptData.items = order.items;
+    receiptData.items = order.items.map(enrichItem);
     return renderPlainText (receiptData, menu, taxRate);
+
+    function enrichItem (anItem) {
+        const result = Object.assign({}, anItem)
+        return result;
+    }
 }
 
 function renderPlainText (data, menu, taxRate) {
