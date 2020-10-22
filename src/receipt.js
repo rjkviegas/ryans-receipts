@@ -1,8 +1,9 @@
 function receipt (menu, order) {
     let result = '';
+    const taxRate = 8.64;
     result += header(menu)
     result += body(menu, order);
-    result += tax(preTaxTotal(menu, order), 0.086)
+    result += totals(menu, order);
     return result;
 
     function header (menu) {
@@ -20,9 +21,17 @@ function receipt (menu, order) {
     function body (menu, order) {
         let result = `${order.customer}\n`
         for (let item of order.items) {
-            result += createItemLine(item)
+            result += createItemLine(menu, item)
         }
         return result
+    }
+
+    function totals (menu, order) {
+        const preTaxAmount = preTaxTotal(menu, order);
+        const taxAmount = (preTaxAmount*taxRate/100);
+        const totalAmount = preTaxAmount + taxAmount;
+        return  `Tax\t$${priceFormat(taxAmount)}\n` +
+            `Total Amount:\t$${priceFormat(totalAmount)}`;
     }
 
     function preTaxTotal (menu, order) {
@@ -34,11 +43,7 @@ function receipt (menu, order) {
         return result;
     }
 
-    function tax (preTaxTotal, taxRate) {
-        return `Tax\t$${priceFormat(preTaxTotal*taxRate)}`;
-    }
-
-    function createItemLine (item) {
+    function createItemLine (menu, item) {
         let itemPrice = menu.prices[0][item.id]
         return  `${item.id}\t${item.quantity} x ${priceFormat(itemPrice)}\n`;
     }

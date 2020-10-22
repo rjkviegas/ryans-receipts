@@ -61,7 +61,12 @@ describe('receipt', function () {
     describe('totals', function () {
         it('returns tax total', function () {
             expect(receipt(menu, orderJson)).toContain(
-                'Tax\t$1.72'
+                'Tax\t$1.72\n'
+            );
+        });
+        it('returns total amount', function () {
+            expect(receipt(menu, orderJson)).toContain(
+                'Total Amount:\t$21.67'
             );
         });
     });
