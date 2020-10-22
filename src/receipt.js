@@ -1,6 +1,12 @@
 function receipt (menu, order, taxRate=8.64) {
+    const receiptData = {};
+    receiptData.customer = order.customer;
+    return renderPlainText (receiptData, menu, order, taxRate);
+}
+
+function renderPlainText (data, menu, order, taxRate) {
     let result = `${menu.shopName}\n${menu.address}\n${phoneNumFormat(menu.phone)}\n`;
-    result += `${order.customer}\n`;
+    result += `${data.customer}\n`;
     for (let item of order.items) {
         result += `${item.id}\t${item.quantity} x` +
             ` ${usd(menu.prices[0][item.id])} =` +
