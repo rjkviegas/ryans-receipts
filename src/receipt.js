@@ -1,6 +1,5 @@
-function receipt (menu, order) {
+function receipt (menu, order, taxRate=8.64) {
     let result = '';
-    const taxRate = 8.64;
     result += header(menu, order);
     for (let item of order.items) {
         result += `${item.id}\t${item.quantity} x` +
@@ -27,25 +26,25 @@ function receipt (menu, order) {
         `-${aPhoneNum.slice(7)}\n`
     }
 
-    function totalAmount (menu, order) {
-        return preTaxTotal(menu, order) + taxTotal(preTaxTotal(menu, order), taxRate);
+    function totalAmount (aMenu, anOrder) {
+        return preTaxTotal(aMenu, anOrder) + taxTotal(preTaxTotal(aMenu, anOrder), taxRate);
     }
 
-    function preTaxTotal (menu, order) {
+    function preTaxTotal (aMenu, anOrder) {
         let result = 0;
-        for (let item of order.items) {
-            let itemPrice = menu.prices[0][item.id];
+        for (let item of anOrder.items) {
+            let itemPrice = aMenu.prices[0][item.id];
             result += (item.quantity*itemPrice);
         }
         return result;
     }
 
-    function taxTotal (amount, taxRate) {
-        return amount*taxRate/100;
+    function taxTotal (anAmount, aTaxRate) {
+        return anAmount*aTaxRate/100;
     }
 
-    function usd (price) {
-        return `$${Number.parseFloat(price).toFixed(2)}`;
+    function usd (anAmount) {
+        return `$${Number.parseFloat(anAmount).toFixed(2)}`;
     }
 }
 
