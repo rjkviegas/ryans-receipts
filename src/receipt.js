@@ -6,7 +6,17 @@ function receipt (menu, order, taxRate=8.64) {
 
     function enrichItem (anItem) {
         const result = Object.assign({}, anItem)
+        result.unitPrice = unitPriceFor(anItem);
+        result.amount = amountFor(result);
         return result;
+    }
+
+    function unitPriceFor (anItem) {
+        return menu.prices[0][anItem.id];
+    }
+
+    function amountFor (anItem) {
+        return anItem.quantity * anItem.unitPrice;
     }
 }
 
@@ -15,8 +25,8 @@ function renderPlainText (data, menu, taxRate) {
     result += `${data.customer}\n`;
     for (let item of data.items) {
         result += `${item.id}\t${item.quantity} x` +
-            ` ${usd(menu.prices[0][item.id])} =` +
-            ` ${usd(item.quantity * menu.prices[0][item.id])}\n`;
+            ` ${usd(item.unitPrice)} =` +
+            ` ${usd(item.amount)}\n`;
     }
     result += `Tax\t${usd(taxTotal(preTaxTotal()))}\n` +
         `Total Amount:\t${usd(totalAmount())}`;
@@ -36,8 +46,7 @@ function renderPlainText (data, menu, taxRate) {
     function preTaxTotal () {
         let result = 0;
         for (let item of data.items) {
-            let itemPrice = menu.prices[0][item.id];
-            result += (item.quantity*itemPrice);
+            result += item.amount;
         }
         return result;
     }
