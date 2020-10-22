@@ -1,11 +1,18 @@
 function receipt (menu, order, taxRate=8.64) {
+    return renderPlainText (createReceiptData (menu, order, taxRate));
+}
+
+function createReceiptData (menu, order, taxRate) {
     const receiptData = {};
+    receiptData.shopName = menu.shopName;
+    receiptData.address = menu.address;
+    receiptData.phone = menu.phone;
     receiptData.customer = order.customer;
     receiptData.items = order.items.map(enrichItem);
     receiptData.preTaxTotal = preTaxTotal (receiptData);
     receiptData.taxTotal = taxTotal (receiptData);
     receiptData.totalAmount = totalAmount (receiptData);
-    return renderPlainText (receiptData, menu);
+    return receiptData;
 
     function enrichItem (anItem) {
         const result = Object.assign({}, anItem)
@@ -36,8 +43,8 @@ function receipt (menu, order, taxRate=8.64) {
     }
 }
 
-function renderPlainText (data, menu) {
-    let result = `${menu.shopName}\n${menu.address}\n${phoneNumFormat(menu.phone)}\n`;
+function renderPlainText (data) {
+    let result = `${data.shopName}\n${data.address}\n${phoneNumFormat(data.phone)}\n`;
     result += `${data.customer}\n`;
     for (let item of data.items) {
         result += `${item.id}\t${item.quantity} x` +
