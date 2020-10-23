@@ -1,10 +1,10 @@
 const { htmlReceipt } = require('../src/receipt');
-const menu = require('../src/json/menus/menu.json');
-const sampleOrder2 = require('./sampleOrders/sampleOrder2.json');
+const menuJson = require('../src/json/menus/menu.json');
+const orderJson = require('./sampleOrders/sampleOrder2.json');
 
 describe('htmlReceipt', function () {
     const taxRate = 8.64;
-    const testHtmlReceipt = htmlReceipt(menu, sampleOrder2, taxRate)
+    const testHtmlReceipt = htmlReceipt(menuJson, orderJson, taxRate)
     describe('header', function () {
         it('shop name', function () {
             expect(testHtmlReceipt).toContain(
