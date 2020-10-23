@@ -1,10 +1,10 @@
 const { htmlReceipt } = require('../src/receipt');
 const menu = require('../src/json/menus/menu.json');
-const sampleOrder1 = require('./sampleOrders/sampleOrder1.json');
+const sampleOrder2 = require('./sampleOrders/sampleOrder2.json');
 
 describe('htmlReceipt', function () {
     const taxRate = 8.64;
-    const testHtmlReceipt = htmlReceipt(menu, sampleOrder1, taxRate)
+    const testHtmlReceipt = htmlReceipt(menu, sampleOrder2, taxRate)
     describe('header', function () {
         it('shop name', function () {
             expect(testHtmlReceipt).toContain(
@@ -23,7 +23,7 @@ describe('htmlReceipt', function () {
         });
         it('customer name', function () {
             expect(testHtmlReceipt).toContain(
-                '<h2>Jane</h2>\n'
+                '<h2>John</h2>\n'
             );
         });
     })
@@ -36,25 +36,25 @@ describe('htmlReceipt', function () {
         });
         it('items ordered', function () {
             expect(testHtmlReceipt).toContain(
-                `<tr><td>Cafe Latte</td><td>2</td><td>$4.75</td><td>$9.50</td></tr>\n`
+                `<tr><td>Americano</td><td>4</td><td>$3.75</td><td>$15.00</td></tr>\n`
             );
             expect(testHtmlReceipt).toContain(
-                `<tr><td>Blueberry Muffin</td><td>1</td><td>$4.05</td><td>$4.05</td></tr>\n`
+                `<tr><td>Tiramisu</td><td>2</td><td>$11.40</td><td>$22.80</td></tr>\n`
             );
             expect(testHtmlReceipt).toContain(
-                `<tr><td>Choc Mudcake</td><td>1</td><td>$6.40</td><td>$6.40</td></tr>\n`
+                `<tr><td>Blueberry Muffin</td><td>5</td><td>$4.05</td><td>$20.25</td></tr>\n`
             );
         });
     });
     describe('totals', function () {
         it('returns tax total', function () {
             expect(testHtmlReceipt).toContain(
-                '<h2>Tax: $1.72</h2>\n'
+                '<h2>Tax: $5.02</h2>\n'
             );
         });
         it('returns total amount', function () {
             expect(testHtmlReceipt).toContain(
-                '<h2>Total Amount: $21.67</h2>'
+                '<h2>Total Amount: $63.07</h2>'
             );
         });
     });
