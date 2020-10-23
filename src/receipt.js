@@ -14,17 +14,17 @@ function renderPlainText (data) {
     }
     result += `Tax\t${usd(data.taxTotal)}\nTotal Amount:\t${usd(data.totalAmount)}`;
     return result;
+}
 
-    function phoneNumFormat (aPhoneNum) {
-        return `+${aPhoneNum[0]} ` +
-        `(${aPhoneNum.slice(1, 4)}) ` +
-        `${aPhoneNum.slice(4, 7)}` +
-        `-${aPhoneNum.slice(7)}`
-    }
+function phoneNumFormat (aPhoneNum) {
+    return `+${aPhoneNum[0]} ` +
+    `(${aPhoneNum.slice(1, 4)}) ` +
+    `${aPhoneNum.slice(4, 7)}` +
+    `-${aPhoneNum.slice(7)}`
+}
 
-    function usd (anAmount) {
-        return `$${Number.parseFloat(anAmount).toFixed(2)}`;
-    }
+function usd (anAmount) {
+    return `$${Number.parseFloat(anAmount).toFixed(2)}`;
 }
 
 module.exports = receipt;
