@@ -17,7 +17,7 @@ function createReceiptData (menu, order, taxRate) {
         return result;
 
         function unitPriceFor (anItem) {
-            return menu.prices[0][anItem.id];
+            return menu.prices[anItem.id];
         }
     
         function amountFor (anItem) {

@@ -1,19 +1,17 @@
-[
-    {
-        "customer": "Jane",
-        "items": [
-            {
-                "id": "Cafe Latte",
-                "quantity": 2
-            },
-            {
-                "id": "Blueberry Muffin",
-                "quantity": 1 
-            },
-            {
-                "id": "Choc Mudcake",
-                "quantity": 1
-            }
-        ]
-    }
-]
+{
+    "customer": "Jane",
+    "items": [
+        {
+            "id": "Cafe Latte",
+            "quantity": 2
+        },
+        {
+            "id": "Blueberry Muffin",
+            "quantity": 1 
+        },
+        {
+            "id": "Choc Mudcake",
+            "quantity": 1
+        }
+    ]
+}
