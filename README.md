@@ -10,7 +10,11 @@ Build a program that:
 
 ## Set Up
 
-Clone this repository and install dependencies `npm install`
+Clone this repository and install dependencies 
+```
+// Jasmine for testing, nyc for code coverage
+npm install
+```
 
 ### Testing
 
@@ -22,7 +26,7 @@ For coverage `npm run coverage`
 No acceptance criteria was provided. 
 The tax rate was defined as 8.64%.
 The orders will be `json` objects To keep consistency with the `menu.json` eg:
-*sampleOrder.json*...
+*sampleOrder1.json*...
 ```
 {
     "customer": "Jane",
