@@ -8,43 +8,39 @@ Build a program that:
 3. calculates and outputs correct amount of tax, line totals and total amount
 4. produces a receipt similiar to the [Sample Receipt](images/receipt.jpg)
 
-## Sample Orders
+## Set Up
 
-No official acceptance criteria provided however suggested sample orders are as follows:
-```
-Jane
-2 x Cafe Latte
-1 x Blueberry Muffin
-1 x Choc Mudcake
+Clone this repository and install dependencies `npm install`
 
-John
-4 x Americano
-2 x Tiramisu
-5 x Blueberry Muffin
+### Testing
+
+Move into root folder `npm test`
+For coverage `npm run coverage`
+
+## Design Decisions
+
+No acceptance criteria was provided. 
+The tax rate was defined as 8.64%.
+The orders will be `json` objects To keep consistency with the `menu.json` eg:
+*sampleOrder.json*...
 ```
-The tax rate is defined as 8.64%.
-To keep consistency with the `menu.json` file the orders will be input as their own `order.json` file eg:
-*orders.json*...
-```
-[
-    {
-        "customer": "Jane",
-        "items": [
-            {
-                "id": "Cafe Latte",
-                "quantity": 2
-            },
-            {
-                "id": "Blueberry Muffin",
-                "quantity": 1 
-            },
-            {
-                "id": "Choc Mudcake",
-                "quantity" : 1
-            }
-        ]
-    }
-]
+{
+    "customer": "Jane",
+    "items": [
+        {
+            "id": "Cafe Latte",
+            "quantity": 2
+        },
+        {
+            "id": "Blueberry Muffin",
+            "quantity": 1 
+        },
+        {
+            "id": "Choc Mudcake",
+            "quantity" : 1
+        }
+    ]
+}
 ```
 
 ## User Stories
