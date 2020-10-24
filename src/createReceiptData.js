@@ -1,19 +1,25 @@
-const { receipt } = require("./receipt");
-
 function createReceiptData (menu, order, cash) {
-    const receiptData = {};
-    receiptData.shopName = menu.shopName;
-    receiptData.address = menu.address;
-    receiptData.phone = menu.phone;
-    receiptData.customer = order.customer;
-    receiptData.items = order.items.map(enrichItem);
-    receiptData.taxRate = order["tax rate"];
-    receiptData.preTaxTotal = preTaxTotal (receiptData);
-    receiptData.taxTotal = taxTotal (receiptData);
-    receiptData.totalAmount = totalAmount (receiptData);
-    receiptData.cash = check (cash);
-    receiptData.change = cash - receiptData.totalAmount;
-    return receiptData;
+    const result = {};
+    result.shopName = menu.shopName;
+    result.address = menu.address;
+    result.phone = menu.phone;
+    result.customer = order.customer;
+    result.items = order.items.map(enrichItem);
+    result.taxRate = order["tax rate"];
+    if (order.discount !== undefined) {
+        result.discount = order.discount;
+        result.discount.amount = discAmountFor (result);
+    }
+    result.preTaxTotal = preTaxTotal (result);
+    result.taxTotal = taxTotal (result);
+    result.totalAmount = totalAmount (result);
+    if (cash <= result.totalAmount) {
+        throw new Error('Total Amount is greater than Cash received')
+    } else {
+        result.cash = cash;
+    }
+    result.change = result.cash - result.totalAmount;
+    return result;
 
     function enrichItem (anItem) {
         const result = Object.assign({}, anItem)
@@ -26,24 +32,27 @@ function createReceiptData (menu, order, cash) {
         }
     }
 
+    function discAmountFor (data) {
+        const discItemId = data.discount.id;
+        const discItem = data.items.find(item => (item.id).toLowerCase().includes(discItemId));
+        return discItem.amount;
+    }
+
     function preTaxTotal (data) {
-        return data.items
+        let result = data.items
             .reduce((total, i) => total + i.amount, 0);
+        if (data.discount !== undefined) {
+            result -= data.discount.amount * data.discount.percent / 100;
+        }
+        return result;
     }
 
     function taxTotal (data) {
-        return data.preTaxTotal*data.taxRate/100;
+        return data.preTaxTotal * data.taxRate / 100;
     }
 
     function totalAmount (data) {
         return data.preTaxTotal + data.taxTotal;
-    }
-
-    function check (anAmount) {
-        if (anAmount <= receiptData.totalAmount) {
-            throw new Error('Total Amount is greater than Cash received')
-        }    
-        return anAmount;
     }
 }
 

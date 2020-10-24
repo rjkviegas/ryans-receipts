@@ -1,0 +1,14 @@
+{
+    "customer": "Hamza",
+    "items": [
+        {
+            "id": "Blueberry Muffin",
+            "quantity": 1 
+        }
+    ],
+    "tax rate": 8.64,
+    "discount" : {
+        "id": "muffin",
+        "percent": 10
+    }
+}

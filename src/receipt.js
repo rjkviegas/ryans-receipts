@@ -12,6 +12,9 @@ function renderPlainText (data) {
             `${item.quantity} x ${usd(item.unitPrice)} = ` +
             `${usd(item.amount)}\n`;
     }
+    if (data.discount !== undefined) {
+        result += `Disc:\t\t${data.discount.percent}% from ${usd(data.discount.amount)}\n`;
+    }
     result += `Tax\t${usd(data.taxTotal)}\nTotal Amount:\t${usd(data.totalAmount)}\n`;
     result += `Cash:\t${usd(data.cash)}\n`;
     result += `Change:\t${usd(data.change)}\n`;
@@ -30,9 +33,12 @@ function renderHtml (data) {
     result += '<tr><th>Item</th><th>Quantity</th><th>Unit Price</th><th>Total</th></tr>';
     for (let item of data.items) {
         result += `<tr><td>${item.id}</td><td>${item.quantity}</td><td>` +
-        `${usd(item.unitPrice)}</td><td>${usd(item.amount)}</td></tr>\n`;
+            `${usd(item.unitPrice)}</td><td>${usd(item.amount)}</td></tr>\n`;
     }
     result += '</table>\n';
+    if (data.discount !== undefined) {
+        result += `<p>Disc:\t\t${data.discount.percent}% from ${usd(data.discount.amount)}</p>\n`;
+    }
     result += `<p>Tax:\t\t<em>${usd(data.taxTotal)}</em></p>\n`
     result += `<p>Total Amount:\t\t<em>${usd(data.totalAmount)}</em></p>\n`;
     result += `<p>Cash:\t\t<em>${usd(data.cash)}</em></p>\n`;

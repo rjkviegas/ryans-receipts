@@ -76,4 +76,8 @@ I want the tax correctly calculated and displayed on the receipt
 As the coffee shop owner
 So I charge the customers the correct amount
 I want the total amount correctly calculated and displayed on the receipt
+
+As the coffee shop owner
+So I can offer customers item specific discounts
+I want item specific discounts to be appliable 
 ```
