@@ -1,7 +1,7 @@
 const createReceiptData = require('./createReceiptData');
 
-exports.receipt = function (menu, order, taxRate) {
-    return renderPlainText (createReceiptData (menu, order, taxRate));
+exports.receipt = function (menu, order) {
+    return renderPlainText (createReceiptData (menu, order));
 }
 
 function renderPlainText (data) {
@@ -16,8 +16,8 @@ function renderPlainText (data) {
     return result;
 }
 
-exports.htmlReceipt = function (menu, order, taxRate) {
-    return renderHtml (createReceiptData(menu, order, taxRate));
+exports.htmlReceipt = function (menu, order) {
+    return renderHtml (createReceiptData(menu, order));
 }
 
 function renderHtml (data) {

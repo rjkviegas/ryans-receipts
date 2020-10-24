@@ -1,10 +1,11 @@
-function createReceiptData (menu, order, taxRate) {
+function createReceiptData (menu, order) {
     const receiptData = {};
     receiptData.shopName = menu.shopName;
     receiptData.address = menu.address;
     receiptData.phone = menu.phone;
     receiptData.customer = order.customer;
     receiptData.items = order.items.map(enrichItem);
+    receiptData.taxRate = order["tax rate"];
     receiptData.preTaxTotal = preTaxTotal (receiptData);
     receiptData.taxTotal = taxTotal (receiptData);
     receiptData.totalAmount = totalAmount (receiptData);
@@ -31,7 +32,7 @@ function createReceiptData (menu, order, taxRate) {
     }
 
     function taxTotal (data) {
-        return data.preTaxTotal*taxRate/100;
+        return data.preTaxTotal*data.taxRate/100;
     }
 
     function totalAmount (data) {

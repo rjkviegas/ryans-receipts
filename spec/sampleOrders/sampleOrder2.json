@@ -13,5 +13,6 @@
             "id": "Blueberry Muffin",
             "quantity": 5
         }
-    ]
+    ],
+    "tax rate": 8.64
 }

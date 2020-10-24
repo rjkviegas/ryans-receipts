@@ -3,8 +3,7 @@ const menuJson = require('../src/json/menus/menu.json');
 const orderJson = require('./sampleOrders/sampleOrder1.json');
 
 describe('receipt', function () {
-    const taxRate = 8.64;
-    const testReceipt = receipt(menuJson, orderJson, taxRate)
+    const testReceipt = receipt(menuJson, orderJson)
     describe('header', function () {
         it('shop name', function () {
             expect(testReceipt).toContain(
