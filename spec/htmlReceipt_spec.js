@@ -64,4 +64,11 @@ describe('htmlReceipt', function () {
             );
         });
     });
+    describe('change', function () {
+        it('returns amount owed to customer', function () {
+            expect(testHtmlReceipt).toContain(
+                '<p>Change:\t<em>$6.93</em></p>\n'
+            );
+        });
+    });
 });

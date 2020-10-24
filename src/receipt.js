@@ -8,13 +8,13 @@ function renderPlainText (data) {
     let result = `${data.shopName}\n${data.address}\n${phoneNumFormat(data.phone)}\n`;
     result += `${data.customer}\n`;
     for (let item of data.items) {
-        result += `${item.id}\t${item.quantity} x` +
-            ` ${usd(item.unitPrice)} =` +
-            ` ${usd(item.amount)}\n`;
+        result += `${item.id}\t` +
+            `${item.quantity} x ${usd(item.unitPrice)} = ` +
+            `${usd(item.amount)}\n`;
     }
     result += `Tax\t${usd(data.taxTotal)}\nTotal Amount:\t${usd(data.totalAmount)}\n`;
     result += `Cash:\t${usd(data.cash)}\n`;
-    console.log(result);
+    result += `Change:\t${usd(data.change)}\n`;
     return result;
 }
 
@@ -36,6 +36,7 @@ function renderHtml (data) {
     result += `<p>Tax:\t\t<em>${usd(data.taxTotal)}</em></p>\n`
     result += `<p>Total Amount:\t\t<em>${usd(data.totalAmount)}</em></p>\n`;
     result += `<p>Cash:\t\t<em>${usd(data.cash)}</em></p>\n`;
+    result += `<p>Change:\t<em>${usd(data.change)}</em></p>\n`;
     return result;
 }
 

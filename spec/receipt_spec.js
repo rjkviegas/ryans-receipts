@@ -58,4 +58,11 @@ describe('receipt', function () {
             );
         });
     });
+    describe('change', function () {
+        it('returns amount owed to customer', function () {
+            expect(testReceipt).toContain(
+                'Change:\t$3.33\n'
+            );
+        });
+    });
 });

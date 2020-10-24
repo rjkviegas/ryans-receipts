@@ -1,3 +1,5 @@
+const { receipt } = require("./receipt");
+
 function createReceiptData (menu, order, cash) {
     const receiptData = {};
     receiptData.shopName = menu.shopName;
@@ -9,11 +11,8 @@ function createReceiptData (menu, order, cash) {
     receiptData.preTaxTotal = preTaxTotal (receiptData);
     receiptData.taxTotal = taxTotal (receiptData);
     receiptData.totalAmount = totalAmount (receiptData);
-    if (cash >= receiptData.totalAmount) {
-        receiptData.cash = cash;
-    } else {
-        throw new Error('Total Amount is greater than Cash received')
-    }
+    receiptData.cash = check (cash);
+    receiptData.change = cash - receiptData.totalAmount;
     return receiptData;
 
     function enrichItem (anItem) {
@@ -38,6 +37,13 @@ function createReceiptData (menu, order, cash) {
 
     function totalAmount (data) {
         return data.preTaxTotal + data.taxTotal;
+    }
+
+    function check (anAmount) {
+        if (anAmount <= receiptData.totalAmount) {
+            throw new Error('Total Amount is greater than Cash received')
+        }    
+        return anAmount;
     }
 }
 
