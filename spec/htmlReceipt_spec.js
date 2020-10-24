@@ -3,7 +3,7 @@ const menuJson = require('../src/json/menus/menu.json');
 const orderJson = require('./sampleOrders/sampleOrder2.json');
 
 describe('htmlReceipt', function () {
-    const testHtmlReceipt = htmlReceipt(menuJson, orderJson)
+    const testHtmlReceipt = htmlReceipt(menuJson, orderJson, 70.00)
     describe('header', function () {
         it('shop name', function () {
             expect(testHtmlReceipt).toContain(
@@ -48,12 +48,19 @@ describe('htmlReceipt', function () {
     describe('totals', function () {
         it('returns tax total', function () {
             expect(testHtmlReceipt).toContain(
-                '<h2>Tax: $5.02</h2>\n'
+                '<p>Tax:\t\t<em>$5.02</em></p>\n'
             );
         });
         it('returns total amount', function () {
             expect(testHtmlReceipt).toContain(
-                '<h2>Total Amount: $63.07</h2>'
+                '<p>Total Amount:\t\t<em>$63.07</em></p>\n'
+            );
+        });
+    });
+    describe('cash', function () {
+        it('returns amount paid by customer', function () {
+            expect(testHtmlReceipt).toContain(
+                '<p>Cash:\t\t<em>$70.00</em></p>\n'
             );
         });
     });

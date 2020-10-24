@@ -1,4 +1,4 @@
-function createReceiptData (menu, order) {
+function createReceiptData (menu, order, cash) {
     const receiptData = {};
     receiptData.shopName = menu.shopName;
     receiptData.address = menu.address;
@@ -9,17 +9,18 @@ function createReceiptData (menu, order) {
     receiptData.preTaxTotal = preTaxTotal (receiptData);
     receiptData.taxTotal = taxTotal (receiptData);
     receiptData.totalAmount = totalAmount (receiptData);
+    if (cash >= receiptData.totalAmount) {
+        receiptData.cash = cash;
+    } else {
+        throw new Error('Total Amount is greater than Cash received')
+    }
     return receiptData;
 
     function enrichItem (anItem) {
         const result = Object.assign({}, anItem)
-        result.unitPrice = unitPriceFor(anItem);
+        result.unitPrice = menu.prices[anItem.id];
         result.amount = amountFor(result);
         return result;
-
-        function unitPriceFor (anItem) {
-            return menu.prices[anItem.id];
-        }
     
         function amountFor (anItem) {
             return anItem.quantity * anItem.unitPrice;

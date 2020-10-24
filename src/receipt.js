@@ -1,7 +1,7 @@
 const createReceiptData = require('./createReceiptData');
 
-exports.receipt = function (menu, order) {
-    return renderPlainText (createReceiptData (menu, order));
+exports.receipt = function (menu, order, cash) {
+    return renderPlainText (createReceiptData (menu, order, cash));
 }
 
 function renderPlainText (data) {
@@ -12,12 +12,14 @@ function renderPlainText (data) {
             ` ${usd(item.unitPrice)} =` +
             ` ${usd(item.amount)}\n`;
     }
-    result += `Tax\t${usd(data.taxTotal)}\nTotal Amount:\t${usd(data.totalAmount)}`;
+    result += `Tax\t${usd(data.taxTotal)}\nTotal Amount:\t${usd(data.totalAmount)}\n`;
+    result += `Cash:\t${usd(data.cash)}\n`;
+    console.log(result);
     return result;
 }
 
-exports.htmlReceipt = function (menu, order) {
-    return renderHtml (createReceiptData(menu, order));
+exports.htmlReceipt = function (menu, order, cash) {
+    return renderHtml (createReceiptData(menu, order, cash));
 }
 
 function renderHtml (data) {
@@ -31,7 +33,9 @@ function renderHtml (data) {
         `${usd(item.unitPrice)}</td><td>${usd(item.amount)}</td></tr>\n`;
     }
     result += '</table>\n';
-    result += `<h2>Tax: ${usd(data.taxTotal)}</h2>\n<h2>Total Amount: ${usd(data.totalAmount)}</h2>`;
+    result += `<p>Tax:\t\t<em>${usd(data.taxTotal)}</em></p>\n`
+    result += `<p>Total Amount:\t\t<em>${usd(data.totalAmount)}</em></p>\n`;
+    result += `<p>Cash:\t\t<em>${usd(data.cash)}</em></p>\n`;
     return result;
 }
 
