@@ -15,7 +15,7 @@ function renderPlainText (data) {
     }
     if (data.itemDiscounts !== undefined) {
         for (let discount of data.itemDiscounts) {
-            result += 'Disc:'.padEnd(pad) + `${discount.percent}% from ${usd(discount.preDiscAmount)}\n`;
+            result += 'Disc:'.padEnd(pad) + `${discount.percent}% from ${usd(discount.preAmount)}\n`;
         }
     }
     result += 'Tax:'.padEnd(pad) + `${usd(data.taxTotal)}\n`;
@@ -47,7 +47,7 @@ function renderHtml (data) {
     result += '</table>\n';
     if (data.itemDiscounts !== undefined) {
         for (let discount of data.itemDiscounts) {
-            result += `<p>Disc:\t\t${discount.percent}% from ${usd(discount.preDiscAmount)}</p>\n`;
+            result += `<p>Disc:\t\t${discount.percent}% from ${usd(discount.preAmount)}</p>\n`;
         }
     }
     result += `<p>Tax:\t\t<em>${usd(data.taxTotal)}</em></p>\n`

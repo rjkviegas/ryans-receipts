@@ -32,11 +32,11 @@ function createReceiptData (menu, order, cash) {
 
     function enrichItemDiscount (aDiscount) {
         const result = Object.assign({}, aDiscount);
-        result.preDiscAmount = preDiscAmountFor (result);
+        result.preAmount = preDiscountAmountFor (result);
         return result;
     }
 
-    function preDiscAmountFor (aDiscount) {
+    function preDiscountAmountFor (aDiscount) {
         const discItems = order.items
             .filter(item => aDiscount.items.includes(item.id));
         const result = discItems
@@ -49,7 +49,7 @@ function createReceiptData (menu, order, cash) {
             .reduce((total, i) => total + i.amount, 0);
         if (data.itemDiscounts !== undefined) {
             result -= data.itemDiscounts
-                .reduce((total, d) => (total + d.preDiscAmount * d.percent / 100), 0);
+                .reduce((total, d) => (total + d.preAmount * d.percent / 100), 0);
         }
         return result;
     }
