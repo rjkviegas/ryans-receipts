@@ -5,49 +5,50 @@ function createReceiptData (menu, order, cash) {
     result.phone = menu.phone;
     result.customer = order.customer;
     result.items = order.items.map(enrichItem);
-    result.taxRate = order["tax rate"];
-    if (order.discounts !== undefined) {
-        result.discounts = order.discounts.map(enrichDiscount);
+    result.taxRate = order.taxRate;
+    if (order.itemDiscounts !== undefined) {
+        result.itemDiscounts = order.itemDiscounts.map(enrichItemDiscount);
     }
     result.preTaxTotal = preTaxTotal (result);
     result.taxTotal = taxTotal (result);
     result.totalAmount = totalAmount (result);
-    if (cash <= result.totalAmount) {
-        throw new Error('Total Amount is greater than Cash received')
+    if (order.totalDisc !== undefined && result.totalAmount > order.totalDisc.limit) {
+        result.totalDisc = order.totalDisc;
+        result.totalDisc.amount = result.totalAmount;
+        result.finalAmount = applyTotalDisc (result); 
     } else {
-        result.cash = cash;
+        result.finalAmount = result.totalAmount;
     }
-    result.change = result.cash - result.totalAmount;
+    result.cash = cash;
+    result.change = result.cash - result.finalAmount;
     return result;
 
     function enrichItem (anItem) {
-        const result = Object.assign({}, anItem)
+        const result = Object.assign({}, anItem);
         result.unitPrice = menu.prices[anItem.id];
         result.amount = result.quantity * result.unitPrice;
         return result;
     }
 
-    function enrichDiscount (aDiscount) {
-        const result = Object.assign({}, aDiscount)
+    function enrichItemDiscount (aDiscount) {
+        const result = Object.assign({}, aDiscount);
         result.preDiscAmount = preDiscAmountFor (result);
         return result;
     }
 
     function preDiscAmountFor (aDiscount) {
-        if (aDiscount.type === 'item') {
-            const discItems = order.items
-                .filter(item => aDiscount.items.includes(item.id));
-            const result = discItems
-                .reduce((total, item) => (total + (item.quantity * menu.prices[item.id])), 0);
-            return result;
-        }
+        const discItems = order.items
+            .filter(item => aDiscount.items.includes(item.id));
+        const result = discItems
+            .reduce((total, item) => (total + (item.quantity * menu.prices[item.id])), 0);
+        return result;
     }
 
     function preTaxTotal (data) {
         let result = data.items
             .reduce((total, i) => total + i.amount, 0);
-        if (data.discounts !== undefined) {
-            result -= data.discounts
+        if (data.itemDiscounts !== undefined) {
+            result -= data.itemDiscounts
                 .reduce((total, d) => (total + d.preDiscAmount * d.percent / 100), 0);
         }
         return result;
@@ -59,6 +60,10 @@ function createReceiptData (menu, order, cash) {
 
     function totalAmount (data) {
         return data.preTaxTotal + data.taxTotal;
+    }
+
+    function applyTotalDisc (data) {
+        return data.totalAmount * (1 - (data.totalDisc.percent / 100));
     }
 }
 

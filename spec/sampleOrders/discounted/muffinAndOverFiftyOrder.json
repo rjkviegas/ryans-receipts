@@ -1,0 +1,31 @@
+{
+    "customer": "Geraldine",
+    "items": [
+        {
+            "id": "Blueberry Muffin",
+            "quantity": 10 
+        },
+        {
+            "id": "Chocolate Chip Muffin",
+            "quantity": 8
+        },
+        {
+            "id": "Tea",
+            "quantity": 3
+        }
+    ],
+    "taxRate": 8.64,
+    "itemDiscounts" : [
+        {
+            "items": [
+                "Blueberry Muffin",
+                "Chocolate Chip Muffin"
+            ],
+            "percent": 10
+        }
+    ],
+    "totalDisc" : {
+        "limit": 50,
+        "percent": 5
+    }
+}

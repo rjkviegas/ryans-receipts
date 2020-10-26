@@ -1,0 +1,14 @@
+{
+    "customer": "Esmerelda",
+    "items": [
+        {
+            "id": "Tea",
+            "quantity": 20 
+        }
+    ],
+    "taxRate": 8.64,
+    "totalDisc" : {
+        "limit": 50,
+        "percent": 5
+    }
+}

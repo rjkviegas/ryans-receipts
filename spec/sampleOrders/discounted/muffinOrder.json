@@ -6,10 +6,9 @@
             "quantity": 1 
         }
     ],
-    "tax rate": 8.64,
-    "discounts" : [
+    "taxRate": 8.64,
+    "itemDiscounts" : [
         {
-            "type": "item",
             "items": [
                 "Blueberry Muffin",
                 "Chocolte Chip Muffin"
