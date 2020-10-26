@@ -7,8 +7,14 @@
         }
     ],
     "tax rate": 8.64,
-    "discount" : {
-        "id": "muffin",
-        "percent": 10
-    }
+    "discounts" : [
+        {
+            "type": "item",
+            "items": [
+                "Blueberry Muffin",
+                "Chocolte Chip Muffin"
+            ],
+            "percent": 10
+        }
+    ]
 }

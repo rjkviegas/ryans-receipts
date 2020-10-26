@@ -6,9 +6,8 @@ function createReceiptData (menu, order, cash) {
     result.customer = order.customer;
     result.items = order.items.map(enrichItem);
     result.taxRate = order["tax rate"];
-    if (order.discount !== undefined) {
-        result.discount = order.discount;
-        result.discount.amount = discAmountFor (result);
+    if (order.discounts !== undefined) {
+        result.discounts = order.discounts.map(enrichDiscount);
     }
     result.preTaxTotal = preTaxTotal (result);
     result.taxTotal = taxTotal (result);
@@ -24,25 +23,32 @@ function createReceiptData (menu, order, cash) {
     function enrichItem (anItem) {
         const result = Object.assign({}, anItem)
         result.unitPrice = menu.prices[anItem.id];
-        result.amount = amountFor(result);
+        result.amount = result.quantity * result.unitPrice;
         return result;
-    
-        function amountFor (anItem) {
-            return anItem.quantity * anItem.unitPrice;
-        }
     }
 
-    function discAmountFor (data) {
-        const discItemId = data.discount.id;
-        const discItem = data.items.find(item => (item.id).toLowerCase().includes(discItemId));
-        return discItem.amount;
+    function enrichDiscount (aDiscount) {
+        const result = Object.assign({}, aDiscount)
+        result.preDiscAmount = preDiscAmountFor (result);
+        return result;
+    }
+
+    function preDiscAmountFor (aDiscount) {
+        if (aDiscount.type === 'item') {
+            const discItems = order.items
+                .filter(item => aDiscount.items.includes(item.id));
+            const result = discItems
+                .reduce((total, item) => (total + (item.quantity * menu.prices[item.id])), 0);
+            return result;
+        }
     }
 
     function preTaxTotal (data) {
         let result = data.items
             .reduce((total, i) => total + i.amount, 0);
-        if (data.discount !== undefined) {
-            result -= data.discount.amount * data.discount.percent / 100;
+        if (data.discounts !== undefined) {
+            result -= data.discounts
+                .reduce((total, d) => (total + d.preDiscAmount * d.percent / 100), 0);
         }
         return result;
     }
