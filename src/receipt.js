@@ -5,27 +5,28 @@ exports.receipt = function (menu, order, cash) {
 }
 
 function renderPlainText (data) {
+    const pad = 25;
     let result = `${data.shopName}\n${data.address}\n${phoneNumFormat(data.phone)}\n`;
     result += `${data.customer}\n`;
     for (let item of data.items) {
-        result += `${item.id}\t` +
+        result += `${item.id.padEnd(pad)}` +
             `${item.quantity} x ${usd(item.unitPrice)} = ` +
             `${usd(item.amount)}\n`;
     }
     if (data.itemDiscounts !== undefined) {
         for (let discount of data.itemDiscounts) {
-            result += `Disc:\t\t${discount.percent}% from ${usd(discount.preDiscAmount)}\n`;
+            result += 'Disc:'.padEnd(pad) + `${discount.percent}% from ${usd(discount.preDiscAmount)}\n`;
         }
     }
-    result += `Tax\t${usd(data.taxTotal)}\n`;
-    result += `Total Amount:\t${usd(data.totalAmount)}\n`;
+    result += 'Tax:'.padEnd(pad) + `${usd(data.taxTotal)}\n`;
+    result += 'Total Amount:'.padEnd(pad) + `${usd(data.totalAmount)}\n`;
     if (data.totalDisc !== undefined) {
         result += `${data.totalDisc.percent}% discount applies ` +
             `as total is over ${usd(data.totalDisc.limit)}\n`;
-        result += `Final Amount:\t\t${usd(data.finalAmount)}\n`
+        result += 'Final Amount:'.padEnd(pad) + `${usd(data.finalAmount)}\n`
     }
-    result += `Cash:\t${usd(data.cash)}\n`;
-    result += `Change:\t${usd(data.change)}\n`;
+    result += 'Cash:'.padEnd(pad) + `${usd(data.cash)}\n`;
+    result += 'Change:'.padEnd(pad) + `${usd(data.change)}\n`;
     return result;
 }
 
