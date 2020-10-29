@@ -1,5 +1,8 @@
 const express = require('express');
 const expressHandlebars = require('express-handlebars');
+const { htmlReceipt } = require('./src/receipt');
+const menu = require('./src/json/menus/menu.json');
+const sampleOrder = require('./spec/sampleOrders/discounted/itemAndTotalDiscOrder.json');
 
 const app = express();
 
@@ -13,7 +16,7 @@ app.set('view engine', 'handlebars');
 
 const port = process.env.PORT || 3000;
 
-app.get('/', (req, res) => res.render('home'));
+app.get('/', (req, res) => res.render('home', { sampleHtmlReceipt: htmlReceipt(menu, sampleOrder, 100.00) }));
 
 app.get('/about', (req, res) => res.render('about'));
 
