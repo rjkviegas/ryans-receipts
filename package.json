@@ -4,6 +4,7 @@
   "description": "Receipt Generating Program",
   "main": "./src/receipt.js",
   "dependencies": {
+    "express": "^4.17.1",
     "jasmine": "^3.6.2"
   },
   "devDependencies": {
