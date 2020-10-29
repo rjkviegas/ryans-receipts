@@ -3,6 +3,8 @@ const expressHandlebars = require('express-handlebars');
 
 const app = express();
 
+app.use(express.static(__dirname + '/public'));
+
 //configure Handlebars view engine
 app.engine('handlebars', expressHandlebars({
     defaultLayout: 'main',
