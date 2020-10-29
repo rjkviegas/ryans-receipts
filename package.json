@@ -5,6 +5,7 @@
   "main": "./src/receipt.js",
   "dependencies": {
     "express": "^4.17.1",
+    "express-handlebars": "^5.2.0",
     "jasmine": "^3.6.2"
   },
   "devDependencies": {
