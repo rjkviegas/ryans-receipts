@@ -3,10 +3,16 @@
 ## Specification
 
 Build a program that:
-1. generates a receipt for an order 
-2. recieves price information taken from a `json` file 
-3. calculates and outputs correct amount of tax, line totals and total amount
-4. produces a receipt similiar to the [Sample Receipt](images/receipt.jpg)
+- generates a receipt for an order 
+- recieves price information from a `json` file 
+- calculates and outputs correct amount of tax, line totals and total amount
+- produces a receipt similiar to the [Sample Receipt](images/receipt.jpg)
+
+## Extenion Options
+
+- functionality to record payment amount and calculate correct change.
+- functionality to handle discounts such as a 5% discount on orders over $50, and a 10% muffin discount.
+
 
 ## Set Up
 
@@ -18,32 +24,55 @@ npm install
 
 ### Testing
 
-Move into root folder `npm test`
-For coverage `npm run coverage`
+Move into root folder:
+```
+npm test
+```
+For coverage 
+```
+npm run coverage
+```
 
 ## Design Decisions
 
 No acceptance criteria was provided. 
-The tax rate was defined as 8.64%.
-The orders will be `json` objects To keep consistency with the `menu.json` eg:
-*sampleOrder1.json*...
+The tax rate was defined as 8.64% which I decided to be included in the order data to allow for ease of changing.
+I decided to that the orders will be `json` objects because it can easily be sent to and from a server, and used as a data format by any programming language (see example order below).
+For the discounts I decided to seperate the two forms of discount as one applies to items and the other the final total. Details of both discounts are within the `order.json` file.
+
+### Example Order
+
 ```
 {
-    "customer": "Jane",
+    "customer": "Geraldine",
     "items": [
         {
-            "id": "Cafe Latte",
-            "quantity": 2
-        },
-        {
             "id": "Blueberry Muffin",
-            "quantity": 1 
+            "quantity": 10 
         },
         {
-            "id": "Choc Mudcake",
-            "quantity" : 1
+            "id": "Chocolate Chip Muffin",
+            "quantity": 8
+        },
+        {
+            "id": "Tea",
+            "quantity": 3
         }
-    ]
+    ],
+    "taxRate": 8.64,
+    "itemDiscounts" : [
+        {
+            "items": [
+                "Blueberry Muffin",
+                "Chocolate Chip Muffin"
+            ],
+            "percent": 10
+        }
+    ],
+    "totalDisc" : {
+        "limit": 50,
+        "percent": 5
+    }
 }
 ```
 
@@ -79,5 +108,9 @@ I want the total amount correctly calculated and displayed on the receipt
 
 As the coffee shop owner
 So I can offer customers item specific discounts
-I want item specific discounts to be appliable 
+I want item specific discounts to be appliable
+
+As the coffee shop owner
+So I can offer discount when customers spend over a certain amount
+I want total specific discounts to be appliable
 ```
