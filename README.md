@@ -35,10 +35,13 @@ npm run coverage
 
 ## Design Decisions
 
-No acceptance criteria was provided. 
-The tax rate was defined as 8.64% which I decided to be included in the order data to allow for ease of changing.
-I decided to that the orders will be `json` objects because it can easily be sent to and from a server, and used as a data format by any programming language (see example order below).
-For the discounts I decided to seperate the two forms of discount as one applies to items and the other the final total. Details of both discounts are within the `order.json` file.
+- No acceptance criteria was provided however I tried to replicate the [Sample Receipt](public/img/receipt.jpg) as closely as possible.
+- The tax rate was defined as 8.64%, which I decided to be included in the order data opposed to passing it as an argument to minimise the amount of arguments.
+- I decided that the orders will be `json` objects to keep consistency with the provided `menu.json` alongside JSON being a straightforward language-agnostic median to transfer data.
+
+### Extensions
+
+- For the discounts I decided to seperate the two forms of suggested discount as one applies to items and the other the final total. Details of both discounts are within the `order.json` file provided to the receipt creating program, with the functionality for the program to have multiple item discoynts but only one total discount, with my reaoning being there could be multiple item discounts but onl ever one total discount applied to an order.
 
 ### Example Order
 
