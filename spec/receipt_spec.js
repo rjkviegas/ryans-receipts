@@ -1,6 +1,6 @@
 const { receipt } = require('../src/receipt');
 const menuJson = require('../src/json/menus/menu.json');
-const orderJson = require('./sampleOrders/nondiscounted/sampleOrder1.json');
+const orderJson = require('../src/json/sampleOrders/nondiscounted/sampleOrder1.json');
 
 describe('receipt', function () {
     const testReceipt = receipt(menuJson, orderJson, 25.00)

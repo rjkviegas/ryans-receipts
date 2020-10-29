@@ -1,6 +1,6 @@
 const { htmlReceipt } = require('./receipt');
 const menu = require('./json/menus/menu.json');
-const sampleOrder = require('../spec/sampleOrders/discounted/itemAndTotalDiscOrder.json');
+const sampleOrder = require('./json/sampleOrders/discounted/itemAndTotalDiscOrder.json');
 
 exports.home = (req, res) => res.render('home', { sampleHtmlReceipt: htmlReceipt(menu, sampleOrder, 100.00) });
 

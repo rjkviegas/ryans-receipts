@@ -1,7 +1,7 @@
 const { htmlReceipt } = require('../src/receipt');
 const menuJson = require('../src/json/menus/menu.json');
-const orderJson = require('./sampleOrders/discounted/itemDiscOrder.json');
-const overFiftyOrderJson = require('./sampleOrders/discounted/totalDiscOrder.json');
+const orderJson = require('../src/json/sampleOrders/discounted/itemDiscOrder.json');
+const overFiftyOrderJson = require('../src/json/sampleOrders/discounted/totalDiscOrder.json');
 
 describe('htmlReceipt with discount', function () {
     const testHtmlReceipt = htmlReceipt(menuJson, orderJson, 10.00);
