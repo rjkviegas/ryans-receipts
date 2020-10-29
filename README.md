@@ -6,7 +6,7 @@ Build a program that:
 - generates a receipt for an order 
 - recieves price information from a `json` file 
 - calculates and outputs correct amount of tax, line totals and total amount
-- produces a receipt similiar to the [Sample Receipt](images/receipt.jpg)
+- produces a receipt similiar to the [Sample Receipt](public/img/receipt.jpg)
 
 ## Extenion Options
 
