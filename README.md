@@ -85,7 +85,7 @@ node ryansreceipts.js
 }
 ```
 ### Example HTML Receipt
-![Example HTML Receipt](public/img/htmlexamplereceipt.png)
+![Example HTML Receipt](https://raw.githubusercontent.com/rjkviegas/till-tech-test/main/public/img/htmlexamplereceipt.PNG)
 ## User Stories
 ```
 As the coffee shop owner
