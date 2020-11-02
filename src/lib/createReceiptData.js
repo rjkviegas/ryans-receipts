@@ -19,10 +19,24 @@ function createReceiptData (menu, order) {
     return result;
 
     function enrichItem (anItem) {
+        const calculator = new ItemCalculator(anItem, menu);
         const result = Object.assign({}, anItem);
-        result.unitPrice = menu.prices[anItem.id];
+        result.unitPrice = calculator.price;
         result.amount = result.quantity * result.unitPrice;
+        result.discPercent = discPercentFor(anItem);
+        result.discAmount = result.amount * result.discPercent / 100;
+        result.totalAmount = result.amount - result.discAmount;
         return result;
+    }
+
+    function discPercentFor (anItem) {
+        if (order.itemDiscounts !== undefined) {
+            const disc = order.itemDiscounts
+                .find(discount => discount.items.includes(anItem.id)); 
+            return (disc !== undefined ? disc.percent : 0);
+        } else {
+            return 0
+        }
     }
 
     function enrichItemDiscount (aDiscount) {
@@ -45,6 +59,17 @@ function createReceiptData (menu, order) {
     }
 }
 
+class ItemCalculator {
+    constructor(anItem, aMenu) {
+        this.item = anItem;
+        this.menu = aMenu;
+    }
+
+    get price() {
+        return this.menu.prices[this.item.id]
+    }
+}
+
 class TotalsCalculator {
     constructor(receiptData, order) {
         this.receiptData = receiptData;
@@ -52,12 +77,7 @@ class TotalsCalculator {
     }
 
     get preTaxTotal() {
-        let result = this.receiptData.items
-            .reduce((total, i) => total + i.amount, 0);
-        if (this.receiptData.itemDiscounts === undefined) return result;
-        
-        return result -= this.receiptData.itemDiscounts
-            .reduce((total, d) => (total + d.preAmount * d.percent / 100), 0);
+        return this.receiptData.items.reduce((total, i) => total + i.totalAmount, 0);
     }
 
     get taxTotal() {
