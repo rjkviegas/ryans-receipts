@@ -48,7 +48,7 @@ npm run coverage
 ## Notes
 - Very pleased with 100% test code coverage
 - Enjoyed refactoring the code base multiple times using Martin Fowler's Refactoring as a reference and inspiration
-- This project made me explore the use of polymorphism, sepcifically to replace conditional logic 
+- This project made me explore the use of polymorphism (to replace conditional logic) and this was fun to do using JavaScript using ECMAScript 2015 Class function  
 
 # Ryan's Receipts
 I have used `Express` to serve the receipts online and display the html receipts. I have used Handlebars for templating and an example receipt is displayed on the home page. To start up the server and check out the webpsite move into the root directory:
