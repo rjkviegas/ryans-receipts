@@ -9,7 +9,8 @@ function createReceiptData (menu, order, cash) {
     if (order.itemDiscounts !== undefined) {
         result.itemDiscounts = order.itemDiscounts.map(enrichItemDiscount);
     }
-    result.preTaxTotal = preTaxTotal (result);
+    const calculator = new TotalsCalculator(result)
+    result.preTaxTotal = calculator.preTaxTotal;
     result.taxTotal = taxTotal (result);
     result.totalAmount = totalAmount (result);
     if (order.totalDisc !== undefined && result.totalAmount > order.totalDisc.limit) {
@@ -27,6 +28,7 @@ function createReceiptData (menu, order, cash) {
         const result = Object.assign({}, anItem);
         result.unitPrice = menu.prices[anItem.id];
         result.amount = result.quantity * result.unitPrice;
+        result.discount = order.discItems
         return result;
     }
 
@@ -44,16 +46,6 @@ function createReceiptData (menu, order, cash) {
         return result;
     }
 
-    function preTaxTotal (data) {
-        let result = data.items
-            .reduce((total, i) => total + i.amount, 0);
-        if (data.itemDiscounts !== undefined) {
-            result -= data.itemDiscounts
-                .reduce((total, d) => (total + d.preAmount * d.percent / 100), 0);
-        }
-        return result;
-    }
-
     function taxTotal (data) {
         return data.preTaxTotal * data.taxRate / 100;
     }
@@ -64,6 +56,22 @@ function createReceiptData (menu, order, cash) {
 
     function applyTotalDisc (data) {
         return data.totalAmount * (1 - (data.totalDisc.percent / 100));
+    }
+}
+
+class TotalsCalculator {
+    constructor(receiptData) {
+        this.receiptData = receiptData
+    }
+
+    get preTaxTotal() {
+        let result = this.receiptData.items
+            .reduce((total, i) => total + i.amount, 0);
+        if (this.receiptData.itemDiscounts !== undefined) {
+            result -= this.receiptData.itemDiscounts
+                .reduce((total, d) => (total + d.preAmount * d.percent / 100), 0);
+        }
+        return result;
     }
 }
 
