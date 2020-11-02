@@ -9,7 +9,7 @@ function createReceiptData (menu, order) {
     if (order.itemDiscounts !== undefined) {
         result.itemDiscounts = order.itemDiscounts.map(enrichItemDiscount);
     }
-    const calculator = new TotalsCalculator(result, order);
+    const calculator = createTotalsCalculator(result, order);
     result.preTaxTotal = calculator.preTaxTotal;
     result.taxTotal = calculator.taxTotal;
     result.totalAmount = calculator.totalAmount;
@@ -17,6 +17,14 @@ function createReceiptData (menu, order) {
     result.cash = calculator.cash;
     result.change = calculator.change;
     return result;
+
+    function createTotalsCalculator(receiptData, anOrder) {
+        if (anOrder.totalDiscount !== undefined) {
+            return new TotalDiscountCalculator(receiptData, anOrder);
+        } else {
+            return new NoTotalDisountCalculator(receiptData, anOrder);
+        }
+    }
 
     function enrichItem (anItem) {
         const result = Object.assign({}, anItem);
@@ -39,22 +47,22 @@ function createReceiptData (menu, order) {
 }
 
 class TotalsCalculator {
-    constructor(data, order) {
-        this.data = data;
+    constructor(receiptData, order) {
+        this.receiptData = receiptData;
         this.order = order;
     }
 
     get preTaxTotal() {
-        let result = this.data.items
+        let result = this.receiptData.items
             .reduce((total, i) => total + i.amount, 0);
-        if (this.data.itemDiscounts === undefined) return result;
+        if (this.receiptData.itemDiscounts === undefined) return result;
         
-        return result -= this.data.itemDiscounts
+        return result -= this.receiptData.itemDiscounts
             .reduce((total, d) => (total + d.preAmount * d.percent / 100), 0);
     }
 
     get taxTotal() {
-        return this.preTaxTotal * this.data.taxRate / 100;
+        return this.preTaxTotal * this.receiptData.taxRate / 100;
     }
 
     get totalAmount() {
@@ -62,12 +70,7 @@ class TotalsCalculator {
     }
 
     get finalAmount() {
-        if (this.order.totalDiscount === undefined ||
-            this.totalAmount < this.order.totalDiscount.limit) return this.totalAmount;
-
-        this.data.totalDiscount = this.order.totalDiscount;
-        this.data.totalDiscount.amount = this.totalAmount;
-        return this.totalAmount * (1 - (this.data.totalDiscount.percent / 100)); 
+        throw new Error('subclass responsibility'); 
     }
 
     get cash() {
@@ -76,6 +79,24 @@ class TotalsCalculator {
 
     get change() {
         return this.cash - this.finalAmount
+    }
+}
+
+class NoTotalDisountCalculator extends TotalsCalculator {
+
+    get finalAmount() {
+        return this.totalAmount;
+    }
+}
+
+class TotalDiscountCalculator extends TotalsCalculator {
+
+    get finalAmount() {
+        if (this.totalAmount < this.order.totalDiscount.limit) return this.totalAmount;
+
+        this.receiptData.totalDiscount = this.order.totalDiscount;
+        this.receiptData.totalDiscount.amount = this.totalAmount;
+        return this.totalAmount * (1 - (this.receiptData.totalDiscount.percent / 100)); 
     }
 }
 
