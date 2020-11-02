@@ -37,6 +37,7 @@ npm run coverage
 
 - No acceptance criteria was provided however I tried to replicate the [sample Receipt](public/img/receipt.jpg) as closely as possible
 - The tax rate was defined as 8.64%, which I decided to be included in the order data opposed to passing it in as an argument
+- The cash used to pay is also included in the order data
 - I decided that the orders will be `json` objects to keep consistency with the provided `menu.json` and because JSON is a versatile language-agnostic median to transfer data
 
 ### Extension Design Decisions
@@ -83,7 +84,8 @@ node ryansreceipts.js
     "totalDiscount" : {
         "limit": 50,
         "percent": 5
-    }
+    },
+    "cash": 100.00
 }
 ```
 ### Example HTML Receipt
