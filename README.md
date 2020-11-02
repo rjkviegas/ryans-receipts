@@ -1,4 +1,4 @@
-# Till Tech Test
+# Till Tech Test aka Ryan's Receipts
 
 ## Specification
 
@@ -8,10 +8,10 @@ Build a program that:
 - calculates and outputs correct amount of tax, line totals and total amount
 - produces a receipt similiar to the [Sample Receipt](public/img/receipt.jpg)
 
-## Extenion Options
+## Extenion Features
 
-- functionality to record payment amount and calculate correct change.
-- functionality to handle discounts such as a 5% discount on orders over $50, and a 10% muffin discount.
+- functionality to record payment amount and calculate correct change
+- functionality to handle discounts such as a 5% discount on orders over $50, and a 10% muffin discount
 
 
 ## Set Up
@@ -35,13 +35,15 @@ npm run coverage
 
 ## Design Decisions
 
-- No acceptance criteria was provided however I tried to replicate the [Sample Receipt](public/img/receipt.jpg) as closely as possible.
-- The tax rate was defined as 8.64%, which I decided to be included in the order data opposed to passing it as an argument to minimise the amount of arguments.
-- I decided that the orders will be `json` objects to keep consistency with the provided `menu.json` alongside JSON being a versatile language-agnostic median to transfer data.
+- No acceptance criteria was provided however I tried to replicate the [sample Receipt](public/img/receipt.jpg) as closely as possible
+- The tax rate was defined as 8.64%, which I decided to be included in the order data opposed to passing it in as an argument
+- I decided that the orders will be `json` objects to keep consistency with the provided `menu.json` and because JSON is a versatile language-agnostic median to transfer data
 
-### Extensions
+### Extension Design Decisions
 
-- For the discounts I decided to seperate the two forms of suggested discount as one applies to items and the other the final total. Details of both discounts are within the `order.json` file provided to the receipt creating program, with the functionality for the program to have multiple item discounts but only one total discount, with my reasoning being there could be multiple item discounts but only ever one total discount applied to an order.
+- For the discounts I decided to seperate the two forms of discount as one is applied to items ordered while the other is applied to the total amount 
+- Details of both kind of discount are within the `order.json` file provided to the receipt creating program
+- The program has been designed for there to be multiple item discounts included but only ever one total discount with the reasoning being there could be multiple item discounts but only ever one total discount applied to an order
 
 ### Ryan's Receipts
 I have used Express to serve the receipts online and display the html receipts. I have used Handlebars for templating and an example receipt is displayed on the home page. To check out the webpages move into the root directory:
@@ -78,7 +80,7 @@ node ryansreceipts.js
             "percent": 10
         }
     ],
-    "totalDisc" : {
+    "totalDiscount" : {
         "limit": 50,
         "percent": 5
     }
@@ -86,6 +88,7 @@ node ryansreceipts.js
 ```
 ### Example HTML Receipt
 ![Example HTML Receipt](https://raw.githubusercontent.com/rjkviegas/till-tech-test/main/public/img/htmlexamplereceipt.PNG)
+
 ## User Stories
 ```
 As the coffee shop owner

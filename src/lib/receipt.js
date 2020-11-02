@@ -20,9 +20,9 @@ function renderPlainText (data) {
     }
     result += 'Tax:'.padEnd(pad) + `${usd(data.taxTotal)}\n`;
     result += 'Total Amount:'.padEnd(pad) + `${usd(data.totalAmount)}\n`;
-    if (data.totalDisc !== undefined) {
-        result += `${data.totalDisc.percent}% discount applies ` +
-            `as total is over ${usd(data.totalDisc.limit)}\n`;
+    if (data.totalDiscount !== undefined) {
+        result += `${data.totalDiscount.percent}% discount applies ` +
+            `as total is over ${usd(data.totalDiscount.limit)}\n`;
         result += 'Final Amount:'.padEnd(pad) + `${usd(data.finalAmount)}\n`
     }
     result += 'Cash:'.padEnd(pad) + `${usd(data.cash)}\n`;
@@ -52,9 +52,9 @@ function renderHtml (data) {
     }
     result += `<p>Tax:\t\t<em>${usd(data.taxTotal)}</em></p>\n`
     result += `<p>Total Amount:\t\t<em>${usd(data.totalAmount)}</em></p>\n`;
-    if (data.totalDisc !== undefined) {
-        result += `<p><em>${data.totalDisc.percent}% discount applies ` +
-            `as total is over ${usd(data.totalDisc.limit)}</em></p>\n`;
+    if (data.totalDiscount !== undefined) {
+        result += `<p><em>${data.totalDiscount.percent}% discount applies ` +
+            `as total is over ${usd(data.totalDiscount.limit)}</em></p>\n`;
         result += `<p>Final Amount:\t\t<em>${usd(data.finalAmount)}</em></p>\n`
     }
     result += `<p>Cash:\t\t<em>${usd(data.cash)}</em></p>\n`;

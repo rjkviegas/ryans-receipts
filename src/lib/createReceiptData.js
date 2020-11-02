@@ -4,12 +4,12 @@ function createReceiptData (menu, order, cash) {
     result.address = menu.address;
     result.phone = menu.phone;
     result.customer = order.customer;
-    result.items = order.items.map(enrichItem);
     result.taxRate = order.taxRate;
+    result.items = order.items.map(enrichItem);
     if (order.itemDiscounts !== undefined) {
         result.itemDiscounts = order.itemDiscounts.map(enrichItemDiscount);
     }
-    const calculator = new TotalsCalculator(result, order)
+    const calculator = new TotalsCalculator(result, order);
     result.preTaxTotal = calculator.preTaxTotal;
     result.taxTotal = calculator.taxTotal;
     result.totalAmount = calculator.totalAmount;
@@ -22,7 +22,6 @@ function createReceiptData (menu, order, cash) {
         const result = Object.assign({}, anItem);
         result.unitPrice = menu.prices[anItem.id];
         result.amount = result.quantity * result.unitPrice;
-        result.discount = order.discItems
         return result;
     }
 
@@ -48,7 +47,7 @@ class TotalsCalculator {
     get preTaxTotal() {
         let result = this.data.items
             .reduce((total, i) => total + i.amount, 0);
-        if (this.data.itemDiscounts === undefined) return result
+        if (this.data.itemDiscounts === undefined) return result;
         
         return result -= this.data.itemDiscounts
             .reduce((total, d) => (total + d.preAmount * d.percent / 100), 0);
@@ -63,12 +62,12 @@ class TotalsCalculator {
     }
 
     get finalAmount() {
-        if (this.order.totalDisc === undefined ||
-            this.data.totalAmount < this.order.totalDisc.limit) return this.data.totalAmount 
+        if (this.order.totalDiscount === undefined ||
+            this.data.totalAmount < this.order.totalDiscount.limit) return this.data.totalAmount;
 
-        this.data.totalDisc = this.order.totalDisc;
-        this.data.totalDisc.amount = this.data.totalAmount;
-        return this.data.totalAmount * (1 - (this.data.totalDisc.percent / 100)); 
+        this.data.totalDiscount = this.order.totalDiscount;
+        this.data.totalDiscount.amount = this.data.totalAmount;
+        return this.data.totalAmount * (1 - (this.data.totalDiscount.percent / 100)); 
     }
 }
 

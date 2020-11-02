@@ -7,7 +7,7 @@
         }
     ],
     "taxRate": 8.64,
-    "totalDisc" : {
+    "totalDiscount" : {
         "limit": 50,
         "percent": 5
     }
