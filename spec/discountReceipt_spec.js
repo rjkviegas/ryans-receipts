@@ -1,4 +1,4 @@
-const { receipt } = require('../src/receipt');
+const { receipt } = require('../src/lib/receipt');
 const menuJson = require('../src/json/menus/menu.json');
 const muffinOrderJson = require('../src/json/sampleOrders/discounted/itemDiscOrder.json');
 const totalDiscOrderJson = require('../src/json/sampleOrders/discounted/totalDiscOrder.json');
