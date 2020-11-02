@@ -25,18 +25,8 @@ function createReceiptData (menu, order) {
         result.amount = calculator.amount;
         result.discPercent = calculator.discPercent;
         result.discAmount = calculator.discAmount;
-        result.totalAmount = result.amount - result.discAmount;
+        result.totalAmount = calculator.totalAmount;
         return result;
-    }
-
-    function discPercentFor (anItem) {
-        if (order.itemDiscounts !== undefined) {
-            const disc = order.itemDiscounts
-                .find(discount => discount.items.includes(anItem.id)); 
-            return (disc !== undefined ? disc.percent : 0);
-        } else {
-            return 0
-        }
     }
 
     function enrichItemDiscount (aDiscount) {
@@ -86,6 +76,10 @@ class ItemCalculator {
 
     get discAmount() {
         return this.amount * this.discPercent / 100
+    }
+
+    get totalAmount() {
+        return this.amount - this.discAmount
     }
 }
 
