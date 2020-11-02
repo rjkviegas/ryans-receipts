@@ -19,7 +19,7 @@ function createReceiptData (menu, order) {
     return result;
 
     function enrichItem (anItem) {
-        const calculator = new ItemCalculator(anItem, menu, order);
+        const calculator = createItemCalculator(anItem, menu, order);
         const result = Object.assign({}, anItem);
         result.unitPrice = calculator.price;
         result.amount = calculator.amount;
@@ -39,6 +39,10 @@ function createReceiptData (menu, order) {
         return order.items
             .filter(item => aDiscount.items.includes(item.id))
             .reduce((total, item) => (total + (item.quantity * menu.prices[item.id])), 0);
+    }
+
+    function createItemCalculator(anItem, aMenu, anOrder) {
+        return new ItemCalculator(anItem, aMenu, anOrder);
     }
 
     function createTotalsCalculator(receiptData, anOrder) {
