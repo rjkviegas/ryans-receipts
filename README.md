@@ -37,11 +37,17 @@ npm run coverage
 
 - No acceptance criteria was provided however I tried to replicate the [Sample Receipt](public/img/receipt.jpg) as closely as possible.
 - The tax rate was defined as 8.64%, which I decided to be included in the order data opposed to passing it as an argument to minimise the amount of arguments.
-- I decided that the orders will be `json` objects to keep consistency with the provided `menu.json` alongside JSON being a straightforward language-agnostic median to transfer data.
+- I decided that the orders will be `json` objects to keep consistency with the provided `menu.json` alongside JSON being a versatile language-agnostic median to transfer data.
 
 ### Extensions
 
-- For the discounts I decided to seperate the two forms of suggested discount as one applies to items and the other the final total. Details of both discounts are within the `order.json` file provided to the receipt creating program, with the functionality for the program to have multiple item discoynts but only one total discount, with my reaoning being there could be multiple item discounts but onl ever one total discount applied to an order.
+- For the discounts I decided to seperate the two forms of suggested discount as one applies to items and the other the final total. Details of both discounts are within the `order.json` file provided to the receipt creating program, with the functionality for the program to have multiple item discounts but only one total discount, with my reasoning being there could be multiple item discounts but only ever one total discount applied to an order.
+
+### Ryan's Receipts
+I have used Express to serve the receipts online and display the html receipts. I have used Handlebars for templating and an example receipt is displayed on the home page. To check out the webpages move into the root directory:
+```
+node ryansreceipts.js
+```
 
 ### Example Order
 
