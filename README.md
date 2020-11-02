@@ -84,7 +84,8 @@ node ryansreceipts.js
     }
 }
 ```
-
+### Example HTML Receipt
+![Example HTML Receipt](public/img/htmlexamplereceipt.png)
 ## User Stories
 ```
 As the coffee shop owner
