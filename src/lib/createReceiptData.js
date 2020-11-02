@@ -80,7 +80,7 @@ class ItemCalculator {
     }
 
     get totalAmount() {
-        return this.amount - this.discAmount
+        return this.amount;
     }
 }
 
@@ -94,6 +94,10 @@ class DiscountCalculator extends ItemCalculator {
 
     get discAmount() {
         return this.amount * this.discPercent / 100;
+    }
+
+    get totalAmount() {
+        return this.amount - this.discAmount;
     }
 }
 
