@@ -18,14 +18,6 @@ function createReceiptData (menu, order) {
     result.change = calculator.change;
     return result;
 
-    function createTotalsCalculator(receiptData, anOrder) {
-        if (anOrder.totalDiscount !== undefined) {
-            return new TotalDiscountCalculator(receiptData, anOrder);
-        } else {
-            return new NoTotalDisountCalculator(receiptData, anOrder);
-        }
-    }
-
     function enrichItem (anItem) {
         const result = Object.assign({}, anItem);
         result.unitPrice = menu.prices[anItem.id];
@@ -43,6 +35,14 @@ function createReceiptData (menu, order) {
         return order.items
             .filter(item => aDiscount.items.includes(item.id))
             .reduce((total, item) => (total + (item.quantity * menu.prices[item.id])), 0);
+    }
+
+    function createTotalsCalculator(receiptData, anOrder) {
+        if (anOrder.totalDiscount !== undefined) {
+            return new TotalDiscountCalculator(receiptData, anOrder);
+        } else {
+        return new TotalsCalculator(receiptData, anOrder);
+        }
     }
 }
 
@@ -69,10 +69,6 @@ class TotalsCalculator {
         return this.preTaxTotal + this.taxTotal;
     }
 
-    get finalAmount() {
-        throw new Error('subclass responsibility'); 
-    }
-
     get cash() {
         return this.order.cash
     }
@@ -80,9 +76,6 @@ class TotalsCalculator {
     get change() {
         return this.cash - this.finalAmount
     }
-}
-
-class NoTotalDisountCalculator extends TotalsCalculator {
 
     get finalAmount() {
         return this.totalAmount;
@@ -92,7 +85,7 @@ class NoTotalDisountCalculator extends TotalsCalculator {
 class TotalDiscountCalculator extends TotalsCalculator {
 
     get finalAmount() {
-        if (this.totalAmount < this.order.totalDiscount.limit) return this.totalAmount;
+        if (this.totalAmount < this.order.totalDiscount.limit) return super.finalAmount;
 
         this.receiptData.totalDiscount = this.order.totalDiscount;
         this.receiptData.totalDiscount.amount = this.totalAmount;
