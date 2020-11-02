@@ -64,7 +64,7 @@ class ItemCalculator {
     }
 
     get price() {
-        return this.menu.prices[this.item.id]
+        return this.menu.prices[this.item.id];
     }
 
     get amount() {
@@ -72,11 +72,11 @@ class ItemCalculator {
     }
 
     get discPercent() {
-            return 0
+        return 0;
     }
 
     get discAmount() {
-        return this.amount * this.discPercent / 100
+        return 0;
     }
 
     get totalAmount() {
@@ -90,6 +90,10 @@ class DiscountCalculator extends ItemCalculator {
         const disc = this.order.itemDiscounts
                 .find(discount => discount.items.includes(this.item.id)); 
         return (disc !== undefined ? disc.percent : super.discPercent);
+    }
+
+    get discAmount() {
+        return this.amount * this.discPercent / 100;
     }
 }
 
