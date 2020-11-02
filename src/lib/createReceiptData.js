@@ -22,7 +22,7 @@ function createReceiptData (menu, order) {
         const calculator = new ItemCalculator(anItem, menu);
         const result = Object.assign({}, anItem);
         result.unitPrice = calculator.price;
-        result.amount = result.quantity * result.unitPrice;
+        result.amount = calculator.amount;
         result.discPercent = discPercentFor(anItem);
         result.discAmount = result.amount * result.discPercent / 100;
         result.totalAmount = result.amount - result.discAmount;
@@ -67,6 +67,10 @@ class ItemCalculator {
 
     get price() {
         return this.menu.prices[this.item.id]
+    }
+
+    get amount() {
+        return this.item.quantity * this.price;
     }
 }
 
