@@ -24,7 +24,7 @@ function createReceiptData (menu, order) {
         result.unitPrice = calculator.price;
         result.amount = calculator.amount;
         result.discPercent = calculator.discPercent;
-        result.discAmount = result.amount * result.discPercent / 100;
+        result.discAmount = calculator.discAmount;
         result.totalAmount = result.amount - result.discAmount;
         return result;
     }
@@ -82,6 +82,10 @@ class ItemCalculator {
         } else {
             return 0
         }
+    }
+
+    get discAmount() {
+        return this.amount * this.discPercent / 100
     }
 }
 
