@@ -42,6 +42,9 @@ function createReceiptData (menu, order) {
     }
 
     function createItemCalculator(anItem, aMenu, anOrder) {
+        if (anOrder.itemDiscounts !== undefined) {
+            return new DiscountCalculator(anItem, aMenu, anOrder);    
+        }
         return new ItemCalculator(anItem, aMenu, anOrder);
     }
 
@@ -69,13 +72,7 @@ class ItemCalculator {
     }
 
     get discPercent() {
-        if (this.order.itemDiscounts !== undefined) {
-            const disc = this.order.itemDiscounts
-                .find(discount => discount.items.includes(this.item.id)); 
-            return (disc !== undefined ? disc.percent : 0);
-        } else {
             return 0
-        }
     }
 
     get discAmount() {
@@ -84,6 +81,15 @@ class ItemCalculator {
 
     get totalAmount() {
         return this.amount - this.discAmount
+    }
+}
+
+class DiscountCalculator extends ItemCalculator {
+
+    get discPercent() {
+        const disc = this.order.itemDiscounts
+                .find(discount => discount.items.includes(this.item.id)); 
+        return (disc !== undefined ? disc.percent : super.discPercent);
     }
 }
 
