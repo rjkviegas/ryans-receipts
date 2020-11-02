@@ -19,11 +19,11 @@ function createReceiptData (menu, order) {
     return result;
 
     function enrichItem (anItem) {
-        const calculator = new ItemCalculator(anItem, menu);
+        const calculator = new ItemCalculator(anItem, menu, order);
         const result = Object.assign({}, anItem);
         result.unitPrice = calculator.price;
         result.amount = calculator.amount;
-        result.discPercent = discPercentFor(anItem);
+        result.discPercent = calculator.discPercent;
         result.discAmount = result.amount * result.discPercent / 100;
         result.totalAmount = result.amount - result.discAmount;
         return result;
@@ -60,9 +60,10 @@ function createReceiptData (menu, order) {
 }
 
 class ItemCalculator {
-    constructor(anItem, aMenu) {
+    constructor(anItem, aMenu, anOrder) {
         this.item = anItem;
         this.menu = aMenu;
+        this.order = anOrder;
     }
 
     get price() {
@@ -71,6 +72,16 @@ class ItemCalculator {
 
     get amount() {
         return this.item.quantity * this.price;
+    }
+
+    get discPercent() {
+        if (this.order.itemDiscounts !== undefined) {
+            const disc = this.order.itemDiscounts
+                .find(discount => discount.items.includes(this.item.id)); 
+            return (disc !== undefined ? disc.percent : 0);
+        } else {
+            return 0
+        }
     }
 }
 
