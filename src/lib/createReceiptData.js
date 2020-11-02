@@ -6,9 +6,7 @@ function createReceiptData (menu, order) {
     result.customer = order.customer;
     result.taxRate = order.taxRate;
     result.items = order.items.map(enrichItem);
-    if (order.itemDiscounts !== undefined) {
-        result.itemDiscounts = order.itemDiscounts.map(enrichItemDiscount);
-    }
+    result.itemDiscounts = itemDiscountsFor(order);
     const calculator = createTotalsCalculator(result, order);
     result.preTaxTotal = calculator.preTaxTotal;
     result.taxTotal = calculator.taxTotal;
@@ -29,26 +27,28 @@ function createReceiptData (menu, order) {
         return result;
     }
 
-    function enrichItemDiscount (aDiscount) {
-        const result = Object.assign({}, aDiscount);
-        result.preAmount = preDiscountAmountFor (result);
-        return result;
-    }
-
-    function preDiscountAmountFor (aDiscount) {
-        return order.items
-            .filter(item => aDiscount.items.includes(item.id))
-            .reduce((total, item) => (total + (item.quantity * menu.prices[item.id])), 0);
-    }
-
-    function createItemCalculator(anItem, aMenu, anOrder) {
+    function createItemCalculator (anItem, aMenu, anOrder) {
         if (anOrder.itemDiscounts !== undefined) {
             return new DiscountCalculator(anItem, aMenu, anOrder);    
         }
         return new ItemCalculator(anItem, aMenu, anOrder);
     }
 
-    function createTotalsCalculator(receiptData, anOrder) {
+    function itemDiscountsFor (anOrder) {
+        if (anOrder.itemDiscounts !== undefined) {
+            return anOrder.itemDiscounts.map(addItemDiscountTotal);
+        }
+    }
+
+    function addItemDiscountTotal (aDiscount) {
+        const result = Object.assign({}, aDiscount);
+        result.preAmount = order.items
+            .filter(item => aDiscount.items.includes(item.id))
+            .reduce((total, item) => (total + (item.quantity * menu.prices[item.id])), 0);
+        return result;
+    }
+
+    function createTotalsCalculator (receiptData, anOrder) {
         if (anOrder.totalDiscount !== undefined) {
             return new TotalDiscountCalculator(receiptData, anOrder);
         }
