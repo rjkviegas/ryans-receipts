@@ -40,9 +40,8 @@ function createReceiptData (menu, order) {
     function createTotalsCalculator(receiptData, anOrder) {
         if (anOrder.totalDiscount !== undefined) {
             return new TotalDiscountCalculator(receiptData, anOrder);
-        } else {
-        return new TotalsCalculator(receiptData, anOrder);
         }
+        return new TotalsCalculator(receiptData, anOrder);
     }
 }
 
