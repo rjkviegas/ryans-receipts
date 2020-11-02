@@ -1,4 +1,4 @@
-function createReceiptData (menu, order, cash) {
+function createReceiptData (menu, order) {
     const result = {};
     result.shopName = menu.shopName;
     result.address = menu.address;
@@ -14,8 +14,8 @@ function createReceiptData (menu, order, cash) {
     result.taxTotal = calculator.taxTotal;
     result.totalAmount = calculator.totalAmount;
     result.finalAmount = calculator.finalAmount;
-    result.cash = cash;
-    result.change = result.cash - result.finalAmount;
+    result.cash = calculator.cash;
+    result.change = calculator.change;
     return result;
 
     function enrichItem (anItem) {
@@ -54,20 +54,28 @@ class TotalsCalculator {
     }
 
     get taxTotal() {
-        return this.data.preTaxTotal * this.data.taxRate / 100;
+        return this.preTaxTotal * this.data.taxRate / 100;
     }
 
     get totalAmount() {
-        return this.data.preTaxTotal + this.data.taxTotal;
+        return this.preTaxTotal + this.taxTotal;
     }
 
     get finalAmount() {
         if (this.order.totalDiscount === undefined ||
-            this.data.totalAmount < this.order.totalDiscount.limit) return this.data.totalAmount;
+            this.totalAmount < this.order.totalDiscount.limit) return this.totalAmount;
 
         this.data.totalDiscount = this.order.totalDiscount;
-        this.data.totalDiscount.amount = this.data.totalAmount;
-        return this.data.totalAmount * (1 - (this.data.totalDiscount.percent / 100)); 
+        this.data.totalDiscount.amount = this.totalAmount;
+        return this.totalAmount * (1 - (this.data.totalDiscount.percent / 100)); 
+    }
+
+    get cash() {
+        return this.order.cash
+    }
+
+    get change() {
+        return this.cash - this.finalAmount
     }
 }
 

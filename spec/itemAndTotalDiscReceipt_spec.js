@@ -3,7 +3,7 @@ const menuJson = require('../src/json/menus/menu.json');
 const orderJson = require('../src/json/sampleOrders/discounted/itemAndTotalDiscOrder.json');
 
 describe('receipt', function () {
-    const testReceipt = receipt (menuJson, orderJson, 100.00);
+    const testReceipt = receipt (menuJson, orderJson);
     const pad = 25;
     it('returns receipt in plain text', function () {
         expect(testReceipt).toEqual(

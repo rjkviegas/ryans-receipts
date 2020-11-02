@@ -4,7 +4,7 @@ const muffinOrderJson = require('../src/json/sampleOrders/discounted/itemDiscOrd
 const totalDiscOrderJson = require('../src/json/sampleOrders/discounted/totalDiscOrder.json');
 
 describe('receipt with muffin discount', function () {
-    const testReceipt = receipt(menuJson, muffinOrderJson, 10.00);
+    const testReceipt = receipt(menuJson, muffinOrderJson);
     const pad = 25;
     it('returns percentage and amount applied to', function () {
         expect(testReceipt).toContain(
@@ -24,7 +24,7 @@ describe('receipt with muffin discount', function () {
 });
 
 describe('receipt with total over 50 discount', function () {
-    const testReceipt = receipt(menuJson, totalDiscOrderJson, 80.00);
+    const testReceipt = receipt(menuJson, totalDiscOrderJson);
     const pad = 25;
     it('returns percentage and amount applied to', function () {
         expect(testReceipt).toContain(

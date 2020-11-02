@@ -3,7 +3,7 @@ const menuJson = require('../src/json/menus/menu.json');
 const orderJson = require('../src/json/sampleOrders/nondiscounted/sampleOrder1.json');
 
 describe('receipt', function () {
-    const testReceipt = receipt(menuJson, orderJson, 25.00)
+    const testReceipt = receipt(menuJson, orderJson)
     const pad = 25;
     describe('header', function () {
         it('shop name', function () {

@@ -14,5 +14,6 @@
             "quantity": 5
         }
     ],
-    "taxRate": 8.64
+    "taxRate": 8.64,
+    "cash": 70.00
 }

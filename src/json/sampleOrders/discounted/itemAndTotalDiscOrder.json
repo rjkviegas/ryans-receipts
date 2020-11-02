@@ -27,5 +27,6 @@
     "totalDiscount" : {
         "limit": 50,
         "percent": 5
-    }
+    },
+    "cash": 100.00
 }
