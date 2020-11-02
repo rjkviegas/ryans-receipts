@@ -48,11 +48,10 @@ class TotalsCalculator {
     get preTaxTotal() {
         let result = this.data.items
             .reduce((total, i) => total + i.amount, 0);
-        if (this.data.itemDiscounts !== undefined) {
-            result -= this.data.itemDiscounts
-                .reduce((total, d) => (total + d.preAmount * d.percent / 100), 0);
-        }
-        return result;
+        if (this.data.itemDiscounts === undefined) return result
+        
+        return result -= this.data.itemDiscounts
+            .reduce((total, d) => (total + d.preAmount * d.percent / 100), 0);
     }
 
     get taxTotal() {
