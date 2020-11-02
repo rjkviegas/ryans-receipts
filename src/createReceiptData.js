@@ -12,7 +12,7 @@ function createReceiptData (menu, order, cash) {
     const calculator = new TotalsCalculator(result)
     result.preTaxTotal = calculator.preTaxTotal;
     result.taxTotal = calculator.taxTotal;
-    result.totalAmount = totalAmount (result);
+    result.totalAmount = calculator.totalAmount;
     if (order.totalDisc !== undefined && result.totalAmount > order.totalDisc.limit) {
         result.totalDisc = order.totalDisc;
         result.totalDisc.amount = result.totalAmount;
@@ -46,10 +46,6 @@ function createReceiptData (menu, order, cash) {
         return result;
     }
 
-    function totalAmount (data) {
-        return data.preTaxTotal + data.taxTotal;
-    }
-
     function applyTotalDisc (data) {
         return data.totalAmount * (1 - (data.totalDisc.percent / 100));
     }
@@ -72,6 +68,10 @@ class TotalsCalculator {
 
     get taxTotal() {
         return this.receiptData.preTaxTotal * this.receiptData.taxRate / 100;
+    }
+
+    get totalAmount() {
+        return this.receiptData.preTaxTotal + this.receiptData.taxTotal;
     }
 }
 
