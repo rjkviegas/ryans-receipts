@@ -4,15 +4,14 @@
 
 Build a program that:
 - generates a receipt for an order 
-- recieves price information from a `json` file 
+- receives a `menu.json` file containing information about the shop and prices of items 
 - calculates and outputs correct amount of tax, line totals and total amount
-- produces a receipt similiar to the [Sample Receipt](public/img/receipt.jpg)
+- produces a receipt similiar to the [sample receipt](public/img/receipt.jpg)
 
 ## Extenion Features
 
 - functionality to record payment amount and calculate correct change
 - functionality to handle discounts such as a 5% discount on orders over $50, and a 10% muffin discount
-
 
 ## Set Up
 
@@ -35,19 +34,24 @@ npm run coverage
 
 ## Design Decisions
 
-- No acceptance criteria was provided however I tried to replicate the [sample Receipt](public/img/receipt.jpg) as closely as possible
-- The tax rate was defined as 8.64%, which I decided to be included in the order data opposed to passing it in as an argument
-- The cash used to pay is also included in the order data
+- No acceptance criteria was provided however I decided to replicate the [sample receipt](public/img/receipt.jpg) as closely as possible
+- The tax rate was defined as 8.64%, which I decided to be included in the `order` data opposed to passing it in as an argument
+- The cash (amount) used to pay is included in the `order` data
 - I decided that the orders will be `json` objects to keep consistency with the provided `menu.json` and because JSON is a versatile language-agnostic median to transfer data
 
-### Extension Design Decisions
+## Extension Design Decisions
 
-- For the discounts I decided to seperate the two forms of discount as one is applied to items ordered while the other is applied to the total amount 
-- Details of both kind of discount are within the `order.json` file provided to the receipt creating program
-- The program has been designed for there to be multiple item discounts included but only ever one total discount with the reasoning being there could be multiple item discounts but only ever one total discount applied to an order
+- For the discounts I decided to separate the two forms of discount as one is applied to items while the other is applied to the total amount of the order/all the items after being discounted where necessary
+- Details of both kind of discount are within the `order.json` file 
+- The program has been designed for there to be multiple item discounts included but only ever one total amount discount with my presumption being there could be multiple item discounts but only ever one total discount applied to an order
 
-### Ryan's Receipts
-I have used Express to serve the receipts online and display the html receipts. I have used Handlebars for templating and an example receipt is displayed on the home page. To check out the webpages move into the root directory:
+## Notes
+- Very pleased with 100% test code coverage
+- Enjoyed refactoring the code base multiple times using Martin Fowler's Refactoring as a reference and inspiration
+- This project made me explore the use of polymorphism, sepcifically to replace conditional logic 
+
+# Ryan's Receipts
+I have used `Express` to serve the receipts online and display the html receipts. I have used Handlebars for templating and an example receipt is displayed on the home page. To start up the server and check out the webpsite move into the root directory:
 ```
 node ryansreceipts.js
 ```
