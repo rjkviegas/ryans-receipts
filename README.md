@@ -1,5 +1,7 @@
 # Till Tech Test aka Ryan's Receipts
 
+A receipt generating API that accepts menus and orders in JSON format in the form of a POST request and returns a receipt in JSON or in HTML.
+
 ## Specification
 
 Build a program that:
@@ -51,10 +53,14 @@ npm run coverage
 - This project made me explore the use of polymorphism (to replace conditional logic) and this was fun to do using JavaScript using ECMAScript 2015 Class function  
 
 # Ryan's Receipts
-I have used `Express` to serve the receipts online and display the html receipts. I have used Handlebars for templating and an example receipt is displayed on the home page. To start up the server and check out the webpsite move into the root directory:
+I have used `Express` to serve the receipts genertor online. To start up the server and check out the webpsite move into the root directory:
 ```
 node ryansreceipts.js
 ```
+
+Using `Postman` I am able to send requests with sample `menu` and `order` `JSON` files and a receipt can be generated and sent back:
+1. in the response body when a POST request is sent to `/makereceipt` 
+2. via html
 
 ### Example Order
 
