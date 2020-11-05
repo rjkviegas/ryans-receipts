@@ -1,3 +1,4 @@
+const createReceiptData = require('./lib/receipt');
 const { htmlReceipt } = require('./lib/receipt');
 const menu = require('./json/menus/menu.json');
 const sampleOrder = require('./json/sampleOrders/discounted/itemAndTotalDiscOrder.json');
@@ -7,10 +8,10 @@ exports.home = (req, res) => res.render('home', { sampleHtmlReceipt: htmlReceipt
 exports.about = (req, res) => res.render('about');
 
 exports.makeHtmlReceipt = (req, res) => {
-    if(req.body.menu === undefined || req.body.order === undefined) {
-        return res.render('makeHtmlReceipt', { errorMsg: 'Data provided not compatible.'});
+    if(!req.body.menu || !req.body.order) {
+        return res.render('makeHtmlReceipt', { errorMsg: 'Error with data provided'});
     }
-    return res.render('makeHtmlReceipt', { receipt: htmlReceipt(req.body.menu, req.body.order) })
+    return res.status(201).render('makeHtmlReceipt', { receipt: htmlReceipt(req.body.menu, req.body.order) })
 }
 
 exports.notFound = (req, res) => res.render('404');
