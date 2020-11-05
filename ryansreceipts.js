@@ -28,7 +28,7 @@ app.get('/makereceipt', (req, res) => {
     res.status(200).send(createReceiptData(req.body.menu, req.body.order))
 });
 
-app.get('/makehtmlreceipt', handlers.makeHtmlReceipt);
+app.post('/makehtmlreceipt', handlers.makeHtmlReceipt);
 
 // custom 404 page
 app.use(handlers.notFound);
