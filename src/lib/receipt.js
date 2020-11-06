@@ -1,6 +1,6 @@
 const createReceiptData = require('./createReceiptData');
 
-exports.receipt = function (menu, order, cash) {
+const receipt = function (menu, order, cash) {
     return renderPlainText (createReceiptData (menu, order, cash));
 }
 
@@ -30,7 +30,7 @@ function renderPlainText (data) {
     return result;
 }
 
-exports.htmlReceipt = function (menu, order, cash) {
+const htmlReceipt = function (menu, order, cash) {
     return renderHtml (createReceiptData(menu, order, cash));
 }
 
@@ -72,3 +72,5 @@ function phoneNumFormat (aPhoneNum) {
 function usd (anAmount) {
     return `$${Number.parseFloat(anAmount).toFixed(2)}`;
 }
+
+module.exports = { receipt, htmlReceipt };
