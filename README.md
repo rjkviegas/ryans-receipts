@@ -3,7 +3,16 @@
 A till tech test that grew into a receipt generating API. It calculates tax, line totals, total amount, amount of discount and change. It accepts a menu and an order in JSON format in a request body and returns a receipt in JSON or in HTML.
 
 ## Receipt Endpoint
-I have used `Express` to serve `POST` requests which can contain `menu` and `order` data (in `JSON` format) in the request body and respond with a receipt in either `JSON` or `HTML` format. To start up the server and check out the webpsite move into the root directory:
+I have used `Express` to serve `POST` requests which can contain `menu` and `order` data (in `JSON` format) in the request body and respond with a receipt in either `JSON` or `HTML` format. 
+
+## Set Up
+
+Clone this repository and install dependencies 
+```
+npm install
+```
+
+To start up the server and check out the website move into the root directory:
 ```
 node ryansreceipts.js
 ```
@@ -87,17 +96,9 @@ Build a program that:
 - generates a receipt for an order 
 - receives a `menu.json` file containing information about the shop and prices of items 
 - calculates and outputs correct amount of tax, line totals and total amount
-- produce a receipt similiar to[sample receipt](public/img/receipt.jpg)
+- produce a receipt similiar to provided [sample receipt](public/img/receipt.jpg)
 - functionality to record payment amount and calculate correct change
 - functionality to handle discounts such as a 5% discount on orders over $50, and a 10% muffin discount
-
-## Set Up
-
-Clone this repository and install dependencies 
-```
-// Jasmine for testing, nyc for code coverage
-npm install
-```
 
 ### Testing
 
