@@ -1,17 +1,93 @@
 # Till Tech Test aka Ryan's Receipts
 
-A receipt generating API that accepts menus and orders in JSON format in the form of a POST request and returns a receipt in JSON or in HTML.
+A till tech test that grew into a receipt generating API. It calculates tax, line totals, total amount, amount of discount and change. It accepts a menu and an order in JSON format in a request body and returns a receipt in JSON or in HTML.
 
-## Specification
+## Receipt Endpoint
+I have used `Express` to serve `POST` requests which can contain `menu` and `order` data (in `JSON` format) in the request body and respond with a receipt in either `JSON` or `HTML` format. To start up the server and check out the webpsite move into the root directory:
+```
+node ryansreceipts.js
+```
+
+Using `Postman` I am able to manually test the API endpoint, with an example of the requests body below. 
+- For `JSON` receipt the endpoint is `/makereceipt` 
+- For `HTML` receipt the endpoint is `./makehtmlreceipt`
+
+### Example Request Body
+
+```
+{
+    "menu" : {
+        "shopName": "The Coffee Connection",
+        "address": "123 Lakeside Way",
+        "phone": "16503600708",
+        "prices": {
+            "Cafe Latte": 4.75,
+            "Flat White": 4.75,
+            "Cappucino": 3.85,
+            "Single Espresso": 2.05,
+            "Double Espresso": 3.75,
+            "Americano": 3.75,
+            "Cortado": 4.55,
+            "Tea": 3.65,
+            "Choc Mudcake": 6.40,
+            "Choc Mousse": 8.20,
+            "Affogato": 14.80,
+            "Tiramisu": 11.40,
+            "Blueberry Muffin": 4.05,
+            "Chocolate Chip Muffin": 4.05,
+            "Muffin Of The Day": 4.55
+        }
+    },
+    "order": {
+        "customer": "Geraldine",
+        "items": [
+            {
+                "id": "Blueberry Muffin",
+                "quantity": 10
+            },
+            {
+                "id": "Chocolate Chip Muffin",
+                "quantity": 8
+            },
+            {
+                "id": "Tea",
+                "quantity": 3
+            }
+        ],
+        "taxRate": 8.64,
+        "itemDiscounts": [
+            {
+                "items": [
+                    "Blueberry Muffin",
+                    "Chocolate Chip Muffin"
+                ],
+                "percent": 10
+            }
+        ],
+        "totalDiscount": {
+            "limit": 50,
+            "percent": 5
+        },
+        "cash": 100.00
+    }
+    
+}
+```
+
+### Example Response Body
+```
+{"receipt":{"shopName":"The Coffee Connection","address":"123 Lakeside Way","phone":"16503600708","customer":"Geraldine","taxRate":8.64,"items":[{"id":"Blueberry Muffin","quantity":10,"unitPrice":4.05,"amount":40.5,"discPercent":10,"discAmount":4.05,"totalAmount":36.45},{"id":"Chocolate Chip Muffin","quantity":8,"unitPrice":4.05,"amount":32.4,"discPercent":10,"discAmount":3.24,"totalAmount":29.159999999999997},{"id":"Tea","quantity":3,"unitPrice":3.65,"amount":10.95,"discPercent":0,"discAmount":0,"totalAmount":10.95}],"itemDiscounts":[{"items":["Blueberry Muffin","Chocolate Chip Muffin"],"percent":10,"preAmount":72.9}],"preTaxTotal":76.56,"taxTotal":6.614784000000001,"totalAmount":83.174784,"totalDiscount":{"limit":50,"percent":5,"amount":83.174784},"finalAmount":79.0160448,"cash":100,"change":20.983955199999997}}
+```
+### Example HTML Receipt
+![Example HTML Receipt](https://raw.githubusercontent.com/rjkviegas/till-tech-test/main/public/img/htmlexamplereceipt.PNG)
+
+## Specification of Till Tech Test
 
 Build a program that:
 - generates a receipt for an order 
 - receives a `menu.json` file containing information about the shop and prices of items 
 - calculates and outputs correct amount of tax, line totals and total amount
-- produces a receipt similiar to the [sample receipt](public/img/receipt.jpg)
-
-## Extenion Features
-
+- produce a receipt similiar to[sample receipt](public/img/receipt.jpg)
 - functionality to record payment amount and calculate correct change
 - functionality to handle discounts such as a 5% discount on orders over $50, and a 10% muffin discount
 
@@ -46,60 +122,13 @@ npm run coverage
 - For the discounts I decided to separate the two forms of discount as one is applied to items while the other is applied to the total amount of the order/all the items after being discounted where necessary
 - Details of both kind of discount are within the `order.json` file 
 - The program has been designed for there to be multiple item discounts included but only ever one total amount discount with my presumption being there could be multiple item discounts but only ever one total discount applied to an order
+- Factory Methods to decide whether the receipt needs discounts applied to specific items and/or the total amount. 
 
 ## Notes
-- Very pleased with 100% test code coverage
+- Very pleased with 100% test code coverage of the receipt generating logic
 - Enjoyed refactoring the code base multiple times using Martin Fowler's Refactoring as a reference and inspiration
-- This project made me explore the use of polymorphism (to replace conditional logic) and this was fun to do using JavaScript using ECMAScript 2015 Class function  
-
-# Ryan's Receipts
-I have used `Express` to serve the receipts genertor online. To start up the server and check out the webpsite move into the root directory:
-```
-node ryansreceipts.js
-```
-
-Using `Postman` I am able to send requests with sample `menu` and `order` `JSON` files and a receipt can be generated and sent back:
-1. in the response body when a POST request is sent to `/makereceipt` 
-2. via html
-
-### Example Order
-
-```
-{
-    "customer": "Geraldine",
-    "items": [
-        {
-            "id": "Blueberry Muffin",
-            "quantity": 10 
-        },
-        {
-            "id": "Chocolate Chip Muffin",
-            "quantity": 8
-        },
-        {
-            "id": "Tea",
-            "quantity": 3
-        }
-    ],
-    "taxRate": 8.64,
-    "itemDiscounts" : [
-        {
-            "items": [
-                "Blueberry Muffin",
-                "Chocolate Chip Muffin"
-            ],
-            "percent": 10
-        }
-    ],
-    "totalDiscount" : {
-        "limit": 50,
-        "percent": 5
-    },
-    "cash": 100.00
-}
-```
-### Example HTML Receipt
-![Example HTML Receipt](https://raw.githubusercontent.com/rjkviegas/till-tech-test/main/public/img/htmlexamplereceipt.PNG)
+- This project made me explore the use of polymorphism and using Factory Methods (to replace conditional logic) and this was fun to do in JavaScript using ECMAScript 2015 Class function 
+- Need to add automated tests for API calls using Jasmine 
 
 ## User Stories
 ```
