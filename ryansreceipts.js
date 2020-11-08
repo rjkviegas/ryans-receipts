@@ -2,7 +2,6 @@ const express = require('express');
 const expressHandlebars = require('express-handlebars');
 const handlers = require('./src/handlers');
 const createReceiptData = require('./src/lib/createReceiptData');
-const { htmlReceipt } = require('./src/lib/receipt');
 
 const app = express();
 
@@ -34,7 +33,9 @@ app.use(handlers.notFound);
 // custom 500 page
 app.use(handlers.serverError);
 
-app.listen(port, () => console.log(
+const server = app.listen(port, () => console.log(
     `Express started on http://localhost:${port}; ` +
     'press Ctrl-C to terminate.'
 ));
+
+module.exports = server;

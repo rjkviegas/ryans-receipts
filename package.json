@@ -6,13 +6,15 @@
   "dependencies": {
     "express": "^4.17.1",
     "express-handlebars": "^5.2.0",
-    "jasmine": "^3.6.2"
+    "jasmine": "^3.6.2",
+    "postman-request": "^2.88.1-postman.27"
   },
   "devDependencies": {
     "nyc": "^15.1.0"
   },
   "scripts": {
-    "test": "jasmine",
+    "test-init": "./node_modules/jasmine/bin/jasmine.js init",
+    "test": "./node_modules/jasmine/bin/jasmine.js",
     "coverage": "nyc --reporter=text npm run test"
   },
   "repository": {
