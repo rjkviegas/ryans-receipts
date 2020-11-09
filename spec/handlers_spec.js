@@ -44,3 +44,19 @@ describe("Not Found page", function () {
         expect(spy).toHaveBeenCalledWith('404');
     });
 });
+
+describe("Server error page", function () {
+
+    it("renders", function () {
+        const error = "Test"
+        const req = {};
+        const res = { render: function(){} };
+        const next = function(){};
+        const spy = spyOn(res, "render");
+
+        handlers.serverError(error, req, res, next);
+
+        expect(spy).toHaveBeenCalled();
+        expect(spy).toHaveBeenCalledWith('500');
+    });
+});
