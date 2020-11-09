@@ -15,5 +15,18 @@ describe("Home page", function () {
         expect(spy).toHaveBeenCalled();
         expect(spy).toHaveBeenCalledWith('home', { sampleHtmlReceipt: htmlReceipt(menu, sampleOrder) });
     });
+});
 
+describe("About page", function () {
+
+    it("renders", function () {
+        const req = {};
+        const res = { render: function(){} };
+        const spy = spyOn(res, "render");
+
+        handlers.about(req, res);
+
+        expect(spy).toHaveBeenCalled();
+        expect(spy).toHaveBeenCalledWith('about');
+    });
 });
