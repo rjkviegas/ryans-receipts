@@ -30,3 +30,17 @@ describe("About page", function () {
         expect(spy).toHaveBeenCalledWith('about');
     });
 });
+
+describe("Not Found page", function () {
+
+    it("renders", function () {
+        const req = {};
+        const res = { render: function(){} };
+        const spy = spyOn(res, "render");
+
+        handlers.notFound(req, res);
+
+        expect(spy).toHaveBeenCalled();
+        expect(spy).toHaveBeenCalledWith('404');
+    });
+});
