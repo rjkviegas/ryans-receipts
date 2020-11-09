@@ -1,6 +1,6 @@
 const request = require('postman-request');
-const { timeout } = require('../ryansreceipts');
 const menuAndOrderJSON = require('../src/json/sampleOrders/discounted/menuAndOrder.json');
+const { htmlReceipt } = require('../src/lib/receipt');
 
 
 describe('Server',function () {
@@ -25,7 +25,7 @@ describe('Server',function () {
                 done();
             });
         });
-        it("Status 200", function() {
+        it("Status 201", function() {
             
             expect(data.status).toBe(201);
         });
@@ -90,6 +90,28 @@ describe('Server',function () {
                 }
             });
         });
+    });
+    describe("POST /makehtmlreceipt", function() {
+        let data = {};
+        beforeAll(function(done) {
+            request({
+                method: 'POST',
+                uri: "http://localhost:3000/makehtmlreceipt",
+                body: menuAndOrderJSON,
+                json: true
+            }, function(error, response, body) {
+                data.status = response.statusCode;
+                // data.body = body;
+                done();
+            });
+        });
+        it("Status 201", function() {
+            
+            expect(data.status).toBe(201);
+        });
+        // it("Body", function() {
+        //     expect(data.body).toEqual();
+        // });
     });
     
 });
