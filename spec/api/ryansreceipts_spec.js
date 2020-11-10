@@ -1,12 +1,12 @@
 const request = require('postman-request');
-const menuAndOrderJSON = require('../src/json/sampleOrders/discounted/menuAndOrder.json');
-const createReceipt = require('../src/lib/createReceiptData');
+const menuAndOrderJSON = require('../../src/json/sampleOrders/discounted/menuAndOrder.json');
+const createReceipt = require('../../src/lib/createReceiptData');
 
 
 describe('Server',function () {
     let server;
     beforeAll(function() {
-       server = require("../ryansreceipts");
+       server = require("../../ryansreceipts");
     });
     afterAll(function() {
         server.close();

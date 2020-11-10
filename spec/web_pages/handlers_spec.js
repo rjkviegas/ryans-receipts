@@ -1,8 +1,7 @@
-const handlers = require('../src/handlers');
-const { htmlReceipt } = require('../src/lib/receipt');
-const menu = require('../src/json/menus/menu.json');
-const sampleOrder = require('../src/json/sampleOrders/discounted/itemAndTotalDiscOrder.json');
-// const reqBodyJson = require('../src/json/sampleOrders/discounted/menuAndOrder.json');
+const handlers = require('../../src/handlers');
+const { htmlReceipt } = require('../../src/lib/receipt');
+const menu = require('../../src/json/menus/menu.json');
+const sampleOrder = require('../../src/json/sampleOrders/discounted/itemAndTotalDiscOrder.json');
 
 describe("Home page", function () {
 
