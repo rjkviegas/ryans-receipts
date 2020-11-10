@@ -1,5 +1,7 @@
 # Till Tech Test aka Ryan's Receipts
 
+![Ryan's Receipts Logo](https://raw.githubusercontent.com/rjkviegas/till-tech-test/main/public/img/logo.png) 
+
 A till tech test that grew into a receipt generating API. It calculates total tax, line totals, total amount, total discount and change. It accepts a menu and an order in JSON format in a request body and returns a receipt in JSON or in HTML.
 
 ## Receipt Endpoints
