@@ -1,12 +1,12 @@
 # Till Tech Test aka Ryan's Receipts
 
-A till tech test that grew into a receipt generating API. It calculates tax, line totals, total amount, amount of discount and change. It accepts a menu and an order in JSON format in a request body and returns a receipt in JSON or in HTML.
+A till tech test that grew into a receipt generating API. It calculates total tax, line totals, total amount, total discount and change. It accepts a menu and an order in JSON format in a request body and returns a receipt in JSON or in HTML.
 
 ## Receipt Endpoints
 I have used `Express` to serve `POST` requests which can contain `menu` and `order` data (in `JSON` format) in the request body and respond with a receipt in either `JSON` or `HTML` format. After initially manually testing using the `Postman` web dashboard I have begun to add automated tests using `Postman-request`.
 
 - For `JSON` receipt the endpoint is `/makereceipt` 
-- For `HTML` receipt the endpoint is `./makehtmlreceipt`
+- For `HTML` receipt the endpoint is `/makehtmlreceipt`
 
 ## Set Up
 
@@ -59,7 +59,6 @@ Build a program that:
 - Wish to improve file structure of project
 - Enjoyed refactoring the code base multiple times using Martin Fowler's Refactoring as a reference and inspiration
 - This project made me explore the use of polymorphism and using Factory Methods (to replace conditional logic) and this was fun to do in JavaScript using ECMAScript 2015 Class function 
-- Need to add automated tests for API calls using Jasmine
 
 ### Example Request Body
 
