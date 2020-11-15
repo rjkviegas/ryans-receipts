@@ -1,6 +1,7 @@
 # Ryan's Receipts
 
-A receipt generating API hosted on AWS (EC2).
+A receipt generating API hosted on AWS.<br />
+Calculates line/tax/overall totals. Discounts can be applied for specific items and/or for the total amount.
 
 ## Receipt Endpoint
 
@@ -8,7 +9,7 @@ A receipt generating API hosted on AWS (EC2).
 http://3.8.131.158/makereceipt
 ```
 
-Serving `POST` requests which contain `menu` and `order` `JSON` data, [request body example](###example-request-body) with a receipt in `JSON` format, [response body example](###example-response-body). 
+Serving `POST` requests which contain `menu` and `order` `JSON` data, [request body example](###example-request-body),s with a receipt in `JSON` format, [response body example](###example-response-body). 
 
 
 ## Set Up
@@ -36,11 +37,12 @@ npm run coverage
 ## Technologies
 - NodeJS
 - Express
-- Nginx
 - AWS (EC2)
+- Nginx
+- PM2
 - Jasmine
 - Postman
-- Istanbul
+- Istanbul/NYC
 
 ### Example Request Body
 
