@@ -2,7 +2,7 @@
 
 A receipt generating API hosted on AWS (EC2).
 
-## Receipt Endpoints
+## Receipt Endpoint
 
 ```
 http://3.8.131.158/makereceipt
@@ -34,12 +34,10 @@ npm run coverage
 ```
 
 ## Technologies
-Server side:
 - NodeJS
 - Express
 - Nginx
 - AWS (EC2)
-Testing:
 - Jasmine
 - Postman
 - Istanbul
