@@ -7,8 +7,8 @@
     "express": "^4.17.1"
   },
   "devDependencies": {
+    "jasmine": "^3.6.3",
     "nyc": "^15.1.0",
-    "jasmine": "^3.6.2",
     "postman-request": "^2.88.1-postman.27"
   },
   "scripts": {
