@@ -1,7 +1,6 @@
 # Ryan's Receipts
 
 A receipt generating API hosted on AWS.<br />
-Calculates line/tax/overall totals. Discounts can be applied for specific items and/or for the total amount.
 
 ## Receipt Endpoint
 
@@ -9,7 +8,9 @@ Calculates line/tax/overall totals. Discounts can be applied for specific items 
 http://3.8.131.158/makereceipt
 ```
 
-Serving `POST` requests which contain `menu` and `order` `JSON` data, [request body example](###example-request-body),s with a receipt in `JSON` format, [response body example](###example-response-body). 
+Serving `POST` requests which contain `menu` and `order` `JSON` data, [request body example](###example-request-body), with a receipt in `JSON` format, [response body example](###example-response-body).<br />
+
+Calculates line totals, tax total and overall order total. Discounts can be applied for specific items and/or for the total amount. The change is also computed.
 
 
 ## Set Up
