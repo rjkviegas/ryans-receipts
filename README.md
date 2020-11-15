@@ -1,14 +1,11 @@
 # Till Tech Test aka Ryan's Receipts
 
-![Ryan's Receipts Logo](https://raw.githubusercontent.com/rjkviegas/till-tech-test/main/public/img/logo.png) 
-
 A till tech test that grew into a receipt generating API. It calculates total tax, line totals, total amount, total discount and change. It accepts a menu and an order in JSON format in a request body and returns a receipt in JSON or in HTML.
 
 ## Receipt Endpoints
-I have used `Express` to serve `POST` requests which can contain `menu` and `order` data (in `JSON` format) in the request body and respond with a receipt in either `JSON` or `HTML` format. After initially manually testing using the `Postman` web dashboard I have begun to add automated tests using `Postman-request`.
+I have used `Express` to serve `POST` requests which can contain `menu` and `order` data (in `JSON` format) in the request body and respond with a receipt in `JSON` format. After initially manually testing using the `Postman` web dashboard I have begun to add automated tests using `Postman-request`.
 
 - For `JSON` receipt the endpoint is `/makereceipt` 
-- For `HTML` receipt the endpoint is `/makehtmlreceipt`
 
 ## Set Up
 
@@ -128,8 +125,6 @@ Build a program that:
 ```
 {"receipt":{"shopName":"The Coffee Connection","address":"123 Lakeside Way","phone":"16503600708","customer":"Geraldine","taxRate":8.64,"items":[{"id":"Blueberry Muffin","quantity":10,"unitPrice":4.05,"amount":40.5,"discPercent":10,"discAmount":4.05,"totalAmount":36.45},{"id":"Chocolate Chip Muffin","quantity":8,"unitPrice":4.05,"amount":32.4,"discPercent":10,"discAmount":3.24,"totalAmount":29.159999999999997},{"id":"Tea","quantity":3,"unitPrice":3.65,"amount":10.95,"discPercent":0,"discAmount":0,"totalAmount":10.95}],"itemDiscounts":[{"items":["Blueberry Muffin","Chocolate Chip Muffin"],"percent":10,"preAmount":72.9}],"preTaxTotal":76.56,"taxTotal":6.614784000000001,"totalAmount":83.174784,"totalDiscount":{"limit":50,"percent":5,"amount":83.174784},"finalAmount":79.0160448,"cash":100,"change":20.983955199999997}}
 ```
-### Example HTML Receipt
-![Example HTML Receipt](https://raw.githubusercontent.com/rjkviegas/till-tech-test/main/public/img/htmlexamplereceipt.PNG) 
 
 ## User Stories
 ```

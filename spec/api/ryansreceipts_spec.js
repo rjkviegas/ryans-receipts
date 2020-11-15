@@ -34,22 +34,4 @@ describe('Server',function () {
             );
         });
     });
-    describe("POST /makehtmlreceipt", function() {
-        let data = {};
-        beforeAll(function(done) {
-            request({
-                method: 'POST',
-                uri: "http://localhost:3000/makehtmlreceipt",
-                body: menuAndOrderJSON,
-                json: true
-            }, function(error, response, body) {
-                data.status = response.statusCode;
-                done();
-            });
-        });
-        it("Status 201", function() {
-            expect(data.status).toBe(201);
-        });
-    });
-    
 });

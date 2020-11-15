@@ -1,7 +1,7 @@
 const createReceiptData = require('./createReceiptData');
 
-const receipt = function (menu, order, cash) {
-    return renderPlainText (createReceiptData (menu, order, cash));
+const receipt = function (menu, order) {
+    return renderPlainText (createReceiptData (menu, order));
 }
 
 function renderPlainText (data) {

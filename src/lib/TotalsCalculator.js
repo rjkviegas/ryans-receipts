@@ -29,7 +29,7 @@ class TotalsCalculator {
     }
 }
 
-class TotalDiscountCalculator extends TotalsCalculator {
+class WithTotalDiscountCalculator extends TotalsCalculator {
 
     get finalAmount() {
         if (this.totalAmount < this.order.totalDiscount.limit) return super.finalAmount;
@@ -40,4 +40,4 @@ class TotalDiscountCalculator extends TotalsCalculator {
     }
 }
 
-module.exports = { TotalsCalculator, TotalDiscountCalculator };
+module.exports = { TotalsCalculator, WithTotalDiscountCalculator };

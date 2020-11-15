@@ -1,5 +1,5 @@
-const { ItemCalculator, DiscountCalculator } = require('./ItemCalculator');
-const { TotalsCalculator, TotalDiscountCalculator } = require('./TotalsCalculator');
+const { ItemCalculator, WithItemDiscountsCalculator } = require('./ItemCalculator');
+const { TotalsCalculator, WithTotalDiscountCalculator } = require('./TotalsCalculator');
 
 function createReceipt (menu, order) {
     const result = {};
@@ -32,7 +32,7 @@ function createReceipt (menu, order) {
 
     function createItemCalculator (item, menu, order) {
         if (order.itemDiscounts !== undefined) {
-            return new DiscountCalculator(item, menu, order);    
+            return new WithItemDiscountsCalculator(item, menu, order);    
         }
         return new ItemCalculator(item, menu, order);
     }
@@ -53,7 +53,7 @@ function createReceipt (menu, order) {
 
     function createTotalsCalculator (receipt, order) {
         if (order.totalDiscount !== undefined) {
-            return new TotalDiscountCalculator(receipt, order);
+            return new WithTotalDiscountCalculator(receipt, order);
         }
         return new TotalsCalculator(receipt, order);
     }

@@ -26,7 +26,7 @@ class ItemCalculator {
     }
 }
 
-class DiscountCalculator extends ItemCalculator {
+class WithItemDiscountsCalculator extends ItemCalculator {
 
     get discPercent() {
         const disc = this.order.itemDiscounts
@@ -43,4 +43,4 @@ class DiscountCalculator extends ItemCalculator {
     }
 }
 
-module.exports = { ItemCalculator, DiscountCalculator };
+module.exports = { ItemCalculator, WithItemDiscountsCalculator };
