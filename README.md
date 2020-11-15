@@ -1,11 +1,15 @@
-# Till Tech Test aka Ryan's Receipts
+# Ryan's Receipts
 
-A till tech test that grew into a receipt generating API. It calculates total tax, line totals, total amount, total discount and change. It accepts a menu and an order in JSON format in a request body and returns a receipt in JSON or in HTML.
+A receipt generating API hosted on AWS (EC2).
 
 ## Receipt Endpoints
-I have used `Express` to serve `POST` requests which can contain `menu` and `order` data (in `JSON` format) in the request body and respond with a receipt in `JSON` format. After initially manually testing using the `Postman` web dashboard I have begun to add automated tests using `Postman-request`.
 
-- For `JSON` receipt the endpoint is `/makereceipt` 
+```
+http://3.8.131.158/makereceipt
+```
+
+Serving `POST` requests which contain `menu` and `order` `JSON` data, [request body example](###example-request-body) with a receipt in `JSON` format, [response body example](###example-response-body). 
+
 
 ## Set Up
 
@@ -29,35 +33,16 @@ For coverage
 npm run coverage
 ```
 
-## Specification of Till Tech Test
-
-Build a program that:
-- generates a receipt for an order 
-- receives a `menu.json` file containing information about the shop and prices of items 
-- calculates and outputs correct amount of tax, line totals and total amount
-- produce a receipt similiar to provided [sample receipt](public/img/receipt.jpg)
-- functionality to record payment amount and calculate correct change
-- functionality to handle discounts such as a 5% discount on orders over $50, and a 10% muffin discount
-
-## Design Decisions
-
-- No acceptance criteria was provided however I decided to replicate the [sample receipt](public/img/receipt.jpg) as closely as possible
-- The tax rate was defined as 8.64%, which I decided to be included in the `order` data opposed to passing it in as an argument
-- The cash (amount) used to pay is included in the `order` data
-- I decided that the orders will be `json` objects to keep consistency with the provided `menu.json` and because JSON is a versatile language-agnostic median to transfer data
-
-## Extension Design Decisions
-
-- For the discounts I decided to separate the two forms of discount as one is applied to items while the other is applied to the total amount of the order/all the items after being discounted where necessary
-- Details of both kind of discount are within the `order.json` file 
-- The program has been designed for there to be multiple item discounts included but only ever one total amount discount with my presumption being there could be multiple item discounts but only ever one total discount applied to an order
-- Factory Methods to decide whether the receipt needs discounts applied to specific items and/or the total amount. 
-
-## Notes
-- Very pleased with 90+% code coverage and enjoyng the challenge of learning how to test APIs using `Postman`
-- Wish to improve file structure of project
-- Enjoyed refactoring the code base multiple times using Martin Fowler's Refactoring as a reference and inspiration
-- This project made me explore the use of polymorphism and using Factory Methods (to replace conditional logic) and this was fun to do in JavaScript using ECMAScript 2015 Class function 
+## Technologies
+Server side:
+- NodeJS
+- Express
+- Nginx
+- AWS (EC2)
+Testing:
+- Jasmine
+- Postman
+- Istanbul
 
 ### Example Request Body
 
