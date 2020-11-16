@@ -6,22 +6,13 @@ const app = express();
 
 const port = process.env.PORT || 3000;
 
+app.use(cors());
+
 // Receipt making API
 app.use(express.json());
 app.use(express.urlencoded({ extended: false}));
 
-app.use(cors())
-
-// const corsOptions = {
-//     origin: true,
-//     methods: ["POST"],
-//     preflightContinue: true,
-//     optionsSuccessStatus: 204,
-//     credentials: true,
-//     maxAge: 3600 
-// }
-
-// app.options('/makereceipt', cors(corsOptions));
+app.options('*', cors());
 app.post('/makereceipt', (req, res) => res.status(201).json({ receipt: createReceiptData(req.body.menu, req.body.order) }));
 
 const server = app.listen(port, () => console.log(
