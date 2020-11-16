@@ -1,9 +1,13 @@
 const express = require('express');
+const cors = require('cors');
 const createReceiptData = require('./src/lib/createReceiptData');
 
 const app = express();
 
 const port = process.env.PORT || 3000;
+
+// Simple Usage (Enable All CORS Requests)
+app.use(cors());
 
 // Receipt making API
 app.use(express.json());
