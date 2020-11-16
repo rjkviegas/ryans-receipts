@@ -10,17 +10,19 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false}));
 
-const corsOptions = {
-    origin: true,
-    methods: ["POST"],
-    preflightContinue: true,
-    optionsSuccessStatus: 204,
-    credentials: true,
-    maxAge: 3600 
-}
+app.use(cors())
 
-app.options('/makereceipt', cors(corsOptions));
-app.post('/makereceipt', cors(corsOptions), (req, res) => res.status(201).json({ receipt: createReceiptData(req.body.menu, req.body.order) }));
+// const corsOptions = {
+//     origin: true,
+//     methods: ["POST"],
+//     preflightContinue: true,
+//     optionsSuccessStatus: 204,
+//     credentials: true,
+//     maxAge: 3600 
+// }
+
+// app.options('/makereceipt', cors(corsOptions));
+app.post('/makereceipt', (req, res) => res.status(201).json({ receipt: createReceiptData(req.body.menu, req.body.order) }));
 
 const server = app.listen(port, () => console.log(
     `Express started on http://localhost:${port}; ` +
