@@ -6,27 +6,20 @@ const app = express();
 
 const port = process.env.PORT || 3000;
 
-// const corsOptions = {
-//     "origin": true,
-//     "methods": ['POST'],
-//     "preflightContinue": true,
-//     "optionsSuccessStatus": 204
-// }
-
-// app.use(cors());
-
 // Receipt making API
 app.use(express.json());
 app.use(express.urlencoded({ extended: false}));
 
 const corsOptions = {
-    "origin": true,
-    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-    "preflightContinue": true,
-    "optionsSuccessStatus": 204
+    origin: true,
+    methods: ["POST"],
+    preflightContinue: true,
+    optionsSuccessStatus: 204,
+    credentials: true,
+    maxAge: 3600 
 }
 
-app.options('*', cors(corsOptions));
+app.options('/makereceipt', cors(corsOptions));
 app.post('/makereceipt', cors(corsOptions), (req, res) => res.status(201).json({ receipt: createReceiptData(req.body.menu, req.body.order) }));
 
 const server = app.listen(port, () => console.log(
