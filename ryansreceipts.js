@@ -8,6 +8,10 @@ const port = process.env.PORT || 3000;
 
 app.use(cors());
 
+app.get('/', (req, res) => {
+    res.redirect('https://ryansreceipts.com');
+});
+
 // Receipt making API
 app.use(express.json());
 app.use(express.urlencoded({ extended: false}));
