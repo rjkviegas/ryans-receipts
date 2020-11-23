@@ -9,10 +9,12 @@
   },
   "devDependencies": {
     "jasmine": "^3.6.3",
+    "nodemon": "^2.0.6",
     "nyc": "^15.1.0",
     "postman-request": "^2.88.1-postman.27"
   },
   "scripts": {
+    "start": "nodemon ryansreceipts.js",
     "test-init": "./node_modules/jasmine/bin/jasmine.js init",
     "test": "./node_modules/jasmine/bin/jasmine.js",
     "coverage": "nyc --reporter=text npm run test"

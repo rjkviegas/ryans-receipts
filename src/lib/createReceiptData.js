@@ -17,6 +17,7 @@ function createReceipt (menu, order) {
     result.finalAmount = calculator.finalAmount;
     result.cash = calculator.cash;
     result.change = calculator.change;
+    Object.freeze(result);
     return result;
 
     function enrichItem (item) {
@@ -27,6 +28,7 @@ function createReceipt (menu, order) {
         result.discPercent = calculator.discPercent;
         result.discAmount = calculator.discAmount;
         result.totalAmount = calculator.totalAmount;
+        Object.freeze(result);
         return result;
     }
 
@@ -47,7 +49,8 @@ function createReceipt (menu, order) {
         const result = Object.assign({}, discount);
         result.preAmount = order.items
             .filter(item => discount.items.includes(item.id))
-            .reduce((total, item) => (total + (item.quantity * menu.prices[item.id])), 0);
+            .reduce((total, item) => (total + (item.quantity*menu.prices[item.id])), 0);
+        Object.freeze(result);
         return result;
     }
 
