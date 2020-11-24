@@ -11,7 +11,7 @@ app.options('*', cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.get('/', (req, res) => res.redirect('https://ryansreceipts.com'));
+app.get('/', handlers.redirectHome);
 
 app.post('/makereceipt', handlers.makeReceipt);
 
