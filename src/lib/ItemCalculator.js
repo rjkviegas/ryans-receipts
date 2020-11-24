@@ -35,7 +35,7 @@ class WithItemDiscountsCalculator extends ItemCalculator {
     }
 
     get discAmount() {
-        return this.amount * this.discPercent / 100;
+        return this.amount * this.discPercent/100;
     }
 
     get totalAmount() {

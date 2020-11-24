@@ -9,7 +9,7 @@ class TotalsCalculator {
     }
 
     get taxTotal() {
-        return this.preTaxTotal * this.receipt.taxRate / 100;
+        return this.preTaxTotal * this.receipt.taxRate/100;
     }
 
     get totalAmount() {
@@ -36,7 +36,7 @@ class WithTotalDiscountCalculator extends TotalsCalculator {
 
         this.receipt.totalDiscount = this.order.totalDiscount;
         this.receipt.totalDiscount.amount = this.totalAmount;
-        return this.totalAmount * (1 - (this.receipt.totalDiscount.percent / 100)); 
+        return this.totalAmount * (1 - (this.receipt.totalDiscount.percent/100)); 
     }
 }
 
