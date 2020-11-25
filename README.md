@@ -190,9 +190,9 @@ I want the total amount correctly calculated and displayed on the receipt
 
 As the coffee shop owner
 So I can offer customers item specific discounts
-I want item specific discounts to be appliable
+I want item specific discounts to be applicable
 
 As the coffee shop owner
 So I can offer discount when customers spend over a certain amount
-I want total specific discounts to be appliable
+I want total specific discounts to be applicable
 ```
