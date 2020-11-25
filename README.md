@@ -21,7 +21,7 @@ npm install
 ```
 To start up the server and check out the website move into the root directory:
 ```
-node ryansreceipts.js
+npm start
 ```
 
 ### Testing

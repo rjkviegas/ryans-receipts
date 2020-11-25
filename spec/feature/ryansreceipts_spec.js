@@ -12,6 +12,7 @@ describe('Server test',function () {
     afterAll(function() {
         server.close();
     });
+
     describe("POST /makereceipt", function() {
         let data = {};
         beforeAll(function(done) {
